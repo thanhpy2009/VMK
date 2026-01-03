@@ -14,23 +14,25 @@ VMK giải quyết vấn đề này bằng cách:
     Tối ưu cho Wayland: Hoạt động ổn định trên các môi trường desktop hiện đại như GNOME, KDE.
 
     Đơn giản hóa: Tập trung vào hiệu quả thực tế thay vì cấu hình phức tạp.
+### 🛠 Các cơ chế gõ của VMK
 
-🛠 Các cơ chế gõ của VMK
+VMK không bắt người dùng phải đau đầu lựa chọn hàng chục chế độ. Chúng tôi tập trung tối ưu hóa 3 phương thức cốt lõi để đảm bảo trải nghiệm gõ luôn thông suốt:
 
-Dự án cung cấp 3 phương thức gõ linh hoạt:
-Chế độ,Tên kỹ thuật,Mô tả cơ chế,Độ tương thích
-VMK1,UniKey Classic,Mô phỏng cơ chế gửi phím Backspace vật lý để xóa và tái tạo ký tự (như UniKey trên Windows). Đây là chế độ chủ đạo giúp loại bỏ hoàn toàn vùng đệm (preedit).,> 90%
-VMK2,Modern Surrounding,Sử dụng API Surrounding Text của hệ thống để xóa/thay thế văn bản. Được kết hợp thuật toán tối ưu của tác giả giúp tốc độ gõ cực nhanh và mượt mà.,~ 50%
-VMK-Pre,Standard Preedit,"Sử dụng preedit truyền thống của Fcitx5. Đây là cơ chế tiêu chuẩn của hệ điều hành, đóng vai trò là phương án dự phòng hoàn hảo cho mọi ứng dụng.",100%
-🏗 Thành phần dự án
+| Chế độ | Tên kỹ thuật | Mô tả cơ chế | Độ tương thích |
+| :--- | :--- | :--- | :---: |
+| **VMK1** | **UniKey Classic** | Mô phỏng cơ chế gửi phím Backspace vật lý để xóa và tái tạo ký tự (như UniKey trên Windows). Đây là chế độ chủ đạo giúp loại bỏ hoàn toàn vùng đệm (preedit). | **> 90%** |
+| **VMK2** | **Modern Surrounding** | Sử dụng API `Surrounding Text` của hệ thống để xóa/thay thế văn bản. Được kết hợp thuật toán tối ưu của tác giả giúp tốc độ gõ cực nhanh và mượt mà. | **~ 50%** |
+| **VMK-Pre** | **Standard Preedit** | Sử dụng vùng đệm truyền thống của Fcitx5. Đây là cơ chế tiêu chuẩn của hệ điều hành, đóng vai trò là phương án dự phòng hoàn hảo cho mọi ứng dụng. | **100%** |
 
-Dự án là sự kết hợp tinh hoa từ các mã nguồn mở đi trước:
+---
 
-    Fcitx5 Framework: Phát triển bởi Weng Xuetian (csslayer).
+### 🏗 Thành phần & Nguồn gốc dự án
 
-    Bamboo Engine: Phát triển bởi Lâm Quang Lương (Đảm bảo độ chính xác tuyệt đối trong việc bỏ dấu tiếng Việt).
+VMK là một bước tiến mới dựa trên sự kế thừa và kết hợp tinh hoa từ các dự án mã nguồn mở xuất sắc:
 
-    VMK Core: Do Thành & Thoan phát triển, bổ sung cơ chế Backspace ảo và xử lý Delay logic.
+* **Fcitx5 Framework:** Nền tảng bộ gõ mạnh mẽ và hiện đại nhất trên Linux/Wayland, phát triển bởi **Weng Xuetian (csslayer)**.
+* **Bamboo Engine:** Trình xử lý tiếng Việt thông minh với thuật toán bỏ dấu chuẩn xác, phát triển bởi **Lâm Quang Lương (luongthanhlam)**.
+* **VMK Core:** Phần lõi do **Võ Ngô Hoàng Thành & Nguyễn Văn Thoan** phát triển. Chúng tôi tập trung bổ sung cơ chế **Backspace ảo** và **Logic tính toán độ trễ (Delay)** nhằm mang lại cảm giác gõ "không vùng đệm" quen thuộc của người dùng Windows lên Linux.
 🤝 Đóng góp & Bản quyền
 
 Dự án được phát hành dưới giấy phép GNU GPLv3. Chúng tôi hoan nghênh mọi sự đóng góp từ cộng đồng để cải thiện Delay logic và tăng độ tương thích cho VMK1.
