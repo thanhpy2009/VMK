@@ -22,7 +22,7 @@ VMK không bắt người dùng phải đau đầu lựa chọn hàng chục ch�
 | :--- | :--- | :--- | :---: |
 | **VMK1** | **UniKey Classic** | Mô phỏng cơ chế gửi phím Backspace vật lý để xóa và tái tạo ký tự (như UniKey trên Windows). Đây là chế độ chủ đạo giúp loại bỏ hoàn toàn vùng đệm (preedit). | **> 90%** |
 | **VMK2** | **Modern Surrounding** | Sử dụng API `Surrounding Text` của hệ thống để xóa/thay thế văn bản. Được kết hợp thuật toán tối ưu của tác giả giúp tốc độ gõ cực nhanh và mượt mà. | **~ 50%** |
-| **VMK-Pre** | **Standard Preedit** | Sử dụng vùng đệm truyền thống của Fcitx5. Đây là cơ chế tiêu chuẩn của hệ điều hành, đóng vai trò là phương án dự phòng hoàn hảo cho mọi ứng dụng. | **100%** |
+| **VMK-Pre** | **Standard Preedit** | Sử dụng preedit truyền thống của Fcitx5. Đây là cơ chế tiêu chuẩn của hệ điều hành, đóng vai trò là phương án dự phòng hoàn hảo cho mọi ứng dụng. | **100%** |
 
 ---
 
