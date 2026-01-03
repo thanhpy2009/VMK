@@ -1,6 +1,6 @@
 # VMK
 Phần mềm gõ tiếng việt VMK
-VMK (Vietnamese Micro Key) for Fcitx5
+(VMK (Vietnamese Micro Key) for Fcitx5)
 
 VMK là bộ gõ tiếng Việt dành cho Fcitx5, được phát triển với mục tiêu mang lại trải nghiệm gõ non-preedit hoàn hảo trên Linux, mô phỏng chính xác cơ chế hoạt động huyền thoại của UniKey trên Windows.
 💡 Tại sao lại là VMK?
@@ -14,6 +14,8 @@ VMK giải quyết vấn đề này bằng cách:
     Tối ưu cho Wayland: Hoạt động ổn định trên các môi trường desktop hiện đại như GNOME, KDE.
 
     Đơn giản hóa: Tập trung vào hiệu quả thực tế thay vì cấu hình phức tạp.
+
+    Đặc biệt bộ cài Đơn giản người dùng chỉ cần cài 1 file setup duy nhất và dùng không cần chỉnh config nhiều có thể gõ chữ TV ngay.
 ### 🛠 Các cơ chế gõ của VMK
 
 VMK không bắt người dùng phải đau đầu lựa chọn hàng chục chế độ. Chúng tôi tập trung tối ưu hóa 3 phương thức cốt lõi để đảm bảo trải nghiệm gõ luôn thông suốt:
