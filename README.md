@@ -19,9 +19,12 @@ VMK giải quyết vấn đề này bằng cách:
 
 Dự án cung cấp 3 phương thức gõ linh hoạt:
 Chế độ	Tên kỹ thuật	Mô tả	Độ tương thích
+
 VMK1	UniKey Classic	Giả lập phím Backspace vật lý để xóa và gửi lại ký tự. Loại bỏ hoàn toàn gạch chân.	> 90%
+
 VMK2	Modern Surrounding	Sử dụng API Surrounding Text của Linux kết hợp thuật toán tối ưu tốc độ của tác giả.	~ 50%
-VMK-Pre	Standard Preedit	Cơ chế vùng đệm truyền thống (dựa trên Bamboo engine) dùng để dự phòng.	100%
+
+VMK-Pre	Standard Preedit	Cơ chế vùng đpreedit (dựa trên Bamboo engine) dùng để dự phòng.	100%
 🏗 Thành phần dự án
 
 Dự án là sự kết hợp tinh hoa từ các mã nguồn mở đi trước:
