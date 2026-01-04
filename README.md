@@ -54,17 +54,39 @@ Chú ý KDE wayland bạn phải vào ô search->virtual keyboard chọn fcitx5 
 </p>
 ## 📥 Chọn phiên bản phù hợp
 
-### 🐧 Debian / Ubuntu (Base)
+## 📥 Tải xuống & Cài đặt
+
+Chọn phiên bản phù hợp với hệ điều hành của bạn:
+
+### 🐧 1. Debian / Ubuntu (non-GNOME)
 [![Download Debian](https://img.shields.io/badge/Download-Debian%20%2F%20Ubuntu-orange?style=for-the-badge&logo=debian)](https://github.com/user-attachments/files/24423654/install_vmk_debian.sh)
+* **Link tải:** [install_vmk_debian.sh](https://github.com/user-attachments/files/24423654/install_vmk_debian.sh)
+* **Lệnh cài nhanh:** `wget https://github.com/user-attachments/files/24423654/install_vmk_debian.sh && bash install_vmk_debian.sh`
 
-### 🏢 Ubuntu GNOME
+---
+
+### 🏢 2. Ubuntu GNOME
 [![Download Ubuntu](https://img.shields.io/badge/Download-Ubuntu%20GNOME-E94333?style=for-the-badge&logo=ubuntu)](https://github.com/user-attachments/files/24423663/install_vmk_ubuntugnome.sh)
+* **Link tải:** [install_vmk_ubuntugnome.sh](https://github.com/user-attachments/files/24423663/install_vmk_ubuntugnome.sh)
+* **Lệnh cài nhanh:** `wget https://github.com/user-attachments/files/24423663/install_vmk_ubuntugnome.sh && bash install_vmk_ubuntugnome.sh`
 
-### 🔵 Fedora
+---
+
+### 🔵 3. Fedora
 [![Download Fedora](https://img.shields.io/badge/Download-Fedora-51A2DA?style=for-the-badge&logo=fedora)](https://github.com/user-attachments/files/24423665/install_vmk_fedora.sh)
+* **Link tải:** [install_vmk_fedora.sh](https://github.com/user-attachments/files/24423665/install_vmk_fedora.sh)
+* **Lệnh cài nhanh:** `wget https://github.com/user-attachments/files/24423665/install_vmk_fedora.sh && bash install_vmk_fedora.sh`
 
-### 🏹 Arch Linux
+---
+
+### 🏹 4. Arch Linux
 [![Download Arch](https://img.shields.io/badge/Download-Arch%20Linux-1793D1?style=for-the-badge&logo=arch-linux)](https://github.com/user-attachments/files/24423664/install_vmk_arch.sh)
+* **Link tải:** [install_vmk_arch.sh](https://github.com/user-attachments/files/24423664/install_vmk_arch.sh)
+* **Lệnh cài nhanh:** `wget https://github.com/user-attachments/files/24423664/install_vmk_arch.sh && bash install_vmk_arch.sh`
 
-### 🦎 openSUSE
+---
+
+### 🦎 5. openSUSE
 [![Download openSUSE](https://img.shields.io/badge/Download-openSUSE-73BA48?style=for-the-badge&logo=opensuse)](https://github.com/user-attachments/files/24423662/install_vmk_opensuse.sh)
+* **Link tải:** [install_vmk_opensuse.sh](https://github.com/user-attachments/files/24423662/install_vmk_opensuse.sh)
+* **Lệnh cài nhanh:** `wget https://github.com/user-attachments/files/24423662/install_vmk_opensuse.sh && bash install_vmk_opensuse.sh`
