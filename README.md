@@ -44,6 +44,20 @@ Tác giả:
     Võ Ngô Hoàng Thành (thanhpy2009@gmail.com)
 
     Nguyễn Văn Thoan
+   ## 📋 Danh sách các phiên bản hỗ trợ
+
+Script và mã nguồn được thiết kế để hoạt động tốt nhất trên các phiên bản hệ điều hành mới nhất tính đến ngày **05/01/2026**:
+
+* **Ubuntu:** Phiên bản **24.04 (Noble Numbat)** trở về sau.
+* **Debian:** Phiên bản **13 (Trixie)** trở về sau.
+* **Fedora:** Phiên bản **43** trở về sau.
+* **Arch Linux:** Các bản cài đặt từ ngày **05/01/2026** trở về sau.
+* **openSUSE Tumbleweed:** Các bản cập nhật từ ngày **05/01/2026** trở về sau.
+
+### ⚙️ Yêu cầu tương thích
+Để đảm bảo bộ gõ và các tính năng hoạt động ổn định, hệ thống cần đáp ứng:
+* **Fcitx5:** Phiên bản **5.1.7** trở về sau.
+* **Quyền quản trị:** Cần quyền `sudo` để thực thi các lệnh cài đặt gói hệ thống. 
 
 Video hướng dẫn chung cho các distro mình lấy ubuntu/debian làm ví dụ.
 Chú ý KDE wayland bạn phải vào ô search->virtual keyboard chọn fcitx5 như trong video hướng dẫn mới gõ đc
