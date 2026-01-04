@@ -44,6 +44,9 @@ Tác giả:
     Võ Ngô Hoàng Thành (thanhpy2009@gmail.com)
 
     Nguyễn Văn Thoan
+
+Video hướng dẫn chung cho các distro mình lấy ubuntu/debian làm ví dụ.
+Chú ý KDE wayland bạn phải vào ô search->virtual keyboard chọn fcitx5 nhưng trong video hướng dẫn mới gõ đc
 <p align="center">
   <a href="https://www.youtube.com/watch?v=EKQmJMjzgQs">
     <img src="https://img.youtube.com/vi/EKQmJMjzgQs/hqdefault.jpg" alt="Xem Video">
