@@ -52,3 +52,19 @@ Chú ý KDE wayland bạn phải vào ô search->virtual keyboard chọn fcitx5 
     <img src="https://img.youtube.com/vi/EKQmJMjzgQs/hqdefault.jpg" alt="Xem Video">
   </a>
 </p>
+## 📥 Chọn phiên bản phù hợp
+
+### 🐧 Debian / Ubuntu (Base)
+[![Download Debian](https://img.shields.io/badge/Download-Debian%20%2F%20Ubuntu-orange?style=for-the-badge&logo=debian)](https://github.com/user-attachments/files/24423654/install_vmk_debian.sh)
+
+### 🏢 Ubuntu GNOME
+[![Download Ubuntu](https://img.shields.io/badge/Download-Ubuntu%20GNOME-E94333?style=for-the-badge&logo=ubuntu)](https://github.com/user-attachments/files/24423663/install_vmk_ubuntugnome.sh)
+
+### 🔵 Fedora
+[![Download Fedora](https://img.shields.io/badge/Download-Fedora-51A2DA?style=for-the-badge&logo=fedora)](https://github.com/user-attachments/files/24423665/install_vmk_fedora.sh)
+
+### 🏹 Arch Linux
+[![Download Arch](https://img.shields.io/badge/Download-Arch%20Linux-1793D1?style=for-the-badge&logo=arch-linux)](https://github.com/user-attachments/files/24423664/install_vmk_arch.sh)
+
+### 🦎 openSUSE
+[![Download openSUSE](https://img.shields.io/badge/Download-openSUSE-73BA48?style=for-the-badge&logo=opensuse)](https://github.com/user-attachments/files/24423662/install_vmk_opensuse.sh)
