@@ -44,5 +44,8 @@ Tác giả:
     Võ Ngô Hoàng Thành (thanhpy2009@gmail.com)
 
     Nguyễn Văn Thoan
-
-   [ [https://www.youtube.com/watch?v=ID_VIDEO](https://youtu.be/EKQmJMjzgQs))](https://youtu.be/EKQmJMjzgQs)
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=EKQmJMjzgQs">
+    <img src="https://img.youtube.com/vi/EKQmJMjzgQs/hqdefault.jpg" alt="Xem Video">
+  </a>
+</p>
