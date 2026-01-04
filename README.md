@@ -58,7 +58,26 @@ Script và mã nguồn được thiết kế để hoạt động tốt nhất t
 Để đảm bảo bộ gõ và các tính năng hoạt động ổn định, hệ thống cần đáp ứng:
 * **Fcitx5:** Phiên bản **5.1.7** trở về sau.
 * **Quyền quản trị:** Cần quyền `sudo` để thực thi các lệnh cài đặt gói hệ thống. 
+## 🛠️ Quy trình cài đặt tự động
 
+Khi chạy script, hệ thống sẽ thực hiện các bước sau:
+
+1.  **Cài đặt Fcitx5 từ kho ứng dụng:** Tải các gói `fcitx5`, `fcitx5-gtk`, `fcitx5-qt`, `fcitx5-lua` (Phiên bản ≥ **5.1.7**).
+2.  **Cài đặt Plugin hệ thống:** * Copy file thư viện **`vmk.so`** và các file `.conf` cần thiết vào thư mục **Addon** của Fcitx5 (đường dẫn được script tự động nhận diện tương ứng với từng Distro).
+3.  **Cấu hình Người dùng:**
+    * Copy file **`sconfig`** vào thư mục Home (`~/sconfig`) để người dùng có thể điều khiển và tùy chỉnh bộ gõ.
+4.  **Kích hoạt Service hỗ trợ:** Thiết lập dịch vụ chạy ngầm để xử lý cơ chế gửi phím **Backspace** thông minh, giúp xóa dấu chính xác và ổn định như Unikey.
+
+---
+
+## 📂 Cấu trúc Mã nguồn (Source Code)
+
+Dự án không cung cấp `git clone` trực tiếp. Bạn có thể truy cập mã nguồn qua các thư mục sau:
+
+* **[src-main](./src-main):** Chứa mã nguồn gốc (bao gồm mã nguồn tạo ra `vmk.so`) do tôi phát triển.
+* **[src-dependencies](./src-dependencies):** Chứa mã nguồn của các dự án liên quan để tiện cho việc biên dịch chung.
+
+---
 Video hướng dẫn chung cho các distro mình lấy ubuntu/debian làm ví dụ.
 Chú ý KDE wayland bạn phải vào ô search->virtual keyboard chọn fcitx5 như trong video hướng dẫn mới gõ đc
 <p align="center">
