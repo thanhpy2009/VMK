@@ -44,8 +44,9 @@ Tác giả:
     Võ Ngô Hoàng Thành (thanhpy2009@gmail.com)
 
     Nguyễn Văn Thoan
-![20bffcd0cd3e42601b2f](https://github.com/user-attachments/assets/1db94b23-3a75-4266-b122-d41a196aed71)
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1db94b23-3a75-4266-b122-d41a196aed71" width="400" >
+</p>
     Nếu bạn thây dùng tốt Donate cho tác giả ly cafe 
     
    ## 📋 Danh sách các phiên bản hỗ trợ
