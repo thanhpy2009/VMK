@@ -91,6 +91,10 @@ Chú ý KDE wayland bạn phải vào ô search->virtual keyboard chọn fcitx5 
 ## 📥 Tải xuống & Cài đặt
 
 Chọn phiên bản phù hợp với hệ điều hành của bạn:
+cd thu_muc_chuafile
+chmod +x ./install_vmk_debian.sh
+sudo ./install_vmk_debian.sh
+Riêng KDE wayland cần vào search->virtual keyboard chọn fcitx5
 
 ### 🐧 1. Debian / Ubuntu (non-GNOME)
 [![Download Debian](https://img.shields.io/badge/Download-Debian%20%2F%20Ubuntu-orange?style=for-the-badge&logo=debian)](https://github.com/user-attachments/files/24423654/install_vmk_debian.sh)
