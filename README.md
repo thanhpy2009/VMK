@@ -52,8 +52,8 @@ Tác giả:
    ## 📋 Danh sách các phiên bản hỗ trợ
 
 Script và mã nguồn được thiết kế để hoạt động tốt nhất trên các phiên bản hệ điều hành mới nhất tính đến ngày **05/01/2026**:
-
-* **Ubuntu:** Phiên bản **24.04 (Noble Numbat)** trở về sau.
+Hiện tại mình Nói rõ là bộ gõ hoạt động tốt với Wayland (Gnome và KDE bản mới) còn X11 chỉ hỗ trợ Linux Mint(XFCE và cinnamon)
+* **Ubuntu:** Phiên bản **24.04 (Noble Numbat)** trở về sau. Hiện ubuntu tại Gnome.
 * **Debian:** Phiên bản **13 (Trixie)** trở về sau.
 * **Fedora:** Phiên bản **43** trở về sau.
 * **Arch Linux:** Các bản cài đặt từ ngày **05/01/2026** trở về sau.
@@ -65,7 +65,7 @@ Script và mã nguồn được thiết kế để hoạt động tốt nhất t
 * **Fcitx5:** Phiên bản **5.1.7** trở về sau.
 * **Quyền quản trị:** Cần quyền `sudo` để thực thi các lệnh cài đặt gói hệ thống. 
 ## 🛠️ Quy trình cài đặt tự động
-
+Trước khi cài VMK bạn cần gõ các gói IBUS nếu đã cài
 Khi chạy script, hệ thống sẽ thực hiện các bước sau:
 
 1.  **Cài đặt Fcitx5 từ kho ứng dụng:** Tải các gói `fcitx5`, `fcitx5-gtk`, `fcitx5-qt`, `fcitx5-lua` (Phiên bản ≥ **5.1.7**).
