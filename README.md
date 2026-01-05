@@ -36,7 +36,7 @@ VMK là một bước tiến mới dựa trên sự kế thừa và kết hợp 
 * **Bamboo Engine:** Trình xử lý tiếng Việt thông minh với thuật toán bỏ dấu chuẩn xác, phát triển bởi **Lâm Quang Lương (luongthanhlam)**.
 * **VMK Core:** Phần lõi do **Võ Ngô Hoàng Thành & Nguyễn Văn Thoan** phát triển. Chúng tôi tập trung bổ sung cơ chế **Backspace ảo** và **Logic tính toán độ trễ (Delay)** nhằm mang lại cảm giác gõ "không vùng đệm" quen thuộc của người dùng Windows lên Linux.
 🤝 Đóng góp & Bản quyền
-
+(Hiện chưa git clone được nhé các bạn thông cảm)
 Dự án được phát hành dưới giấy phép GNU GPLv3. Chúng tôi hoan nghênh mọi sự đóng góp từ cộng đồng để cải thiện Delay logic và tăng độ tương thích cho VMK1.
 
 Tác giả:
