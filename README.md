@@ -112,7 +112,11 @@ Nếu bạn đang sử dụng môi trường Desktop KDE trên giao thức Wayla
     Tìm từ khóa "Virtual Keyboard".
 
     Tại đây, hãy chọn mục Fcitx 5.
-    
+    <img width="1626" height="1099" alt="ảnh" src="https://github.com/user-attachments/assets/f6a32ee1-9216-42b7-bd4f-99151c4470a2" />
+<img width="980" height="690" alt="ảnh" src="https://github.com/user-attachments/assets/55328eb4-8f96-44a8-82ba-08600b8eaba6" />
+ào home chạy file sconfig để cấu gõ thôi
+<img width="866" height="557" alt="ảnh" src="https://github.com/user-attachments/assets/29c84587-8b95-4b2d-b314-9daf90d0f59c" />
+
 
 ### 🐧 1. Debian / Ubuntu (non-GNOME)
 [![Download Debian](https://img.shields.io/badge/Download-Debian%20%2F%20Ubuntu-orange?style=for-the-badge&logo=debian)](https://github.com/user-attachments/files/24423654/install_vmk_debian.sh)
