@@ -90,11 +90,29 @@ Chú ý KDE wayland bạn phải vào ô search->virtual keyboard chọn fcitx5 
 
 ## 📥 Tải xuống & Cài đặt
 
-Chọn phiên bản phù hợp với hệ điều hành của bạn:
-cd thu_muc_chuafile
-chmod +x ./install_vmk_debian.sh
-sudo ./install_vmk_debian.sh
-Riêng KDE wayland cần vào search->virtual keyboard chọn fcitx5
+
+
+Sau khi tải script về, bạn hãy mở Terminal tại thư mục chứa file và chạy các lệnh sau:
+
+### 🛠️ Các bước thực hiện chung:
+1. **Di chuyển vào thư mục:** `cd đường_dẫn_đến_thư_mục`
+2. **Cấp quyền thực thi:** `chmod +x ./tên_file_script.sh`
+3. **Chạy với quyền quản trị:** `sudo ./tên_file_script.sh`
+
+---
+
+ví dụ dành cho deian
+[![Download](https://img.shields.io/badge/Download-Debian%20%2F%20Ubuntu-orange?style=for-the-badge&logo=debian)](https://github.com/user-attachments/files/24423654/install_vmk_debian.sh)
+* **Lệnh cài nhanh:** ```bash
+chmod +x ./install_vmk_debian.sh && sudo ./install_vmk_debian.sh
+Nếu bạn đang sử dụng môi trường Desktop KDE trên giao thức Wayland, bạn cần thực hiện thêm bước sau để bộ gõ hoạt động:
+
+    Mở System Settings (hoặc nhấn Search).
+
+    Tìm từ khóa "Virtual Keyboard".
+
+    Tại đây, hãy chọn mục Fcitx 5.
+    
 
 ### 🐧 1. Debian / Ubuntu (non-GNOME)
 [![Download Debian](https://img.shields.io/badge/Download-Debian%20%2F%20Ubuntu-orange?style=for-the-badge&logo=debian)](https://github.com/user-attachments/files/24423654/install_vmk_debian.sh)
