@@ -53,6 +53,7 @@ Script và mã nguồn được thiết kế để hoạt động tốt nhất t
 * **Fedora:** Phiên bản **43** trở về sau.
 * **Arch Linux:** Các bản cài đặt từ ngày **05/01/2026** trở về sau.
 * **openSUSE Tumbleweed:** Các bản cập nhật từ ngày **05/01/2026** trở về sau.
+  Dùng tốt nhất trên KDE và Gnome wayland bản mới nhất. Ngoài linux Mint cũng là lựa chọn tối ưu 
 
 ### ⚙️ Yêu cầu tương thích
 Để đảm bảo bộ gõ và các tính năng hoạt động ổn định, hệ thống cần đáp ứng:
@@ -118,7 +119,7 @@ Nếu bạn đang sử dụng môi trường Desktop KDE trên giao thức Wayla
 <img width="866" height="557" alt="ảnh" src="https://github.com/user-attachments/assets/29c84587-8b95-4b2d-b314-9daf90d0f59c" />
 
 
-### 🐧 1. Debian / Ubuntu (non-GNOME)
+### 🐧 1. Debian / Ubuntu (non-GNOME) (Bao gồm cả Linux Mint)
 [![Download Debian](https://img.shields.io/badge/Download-Debian%20%2F%20Ubuntu-orange?style=for-the-badge&logo=debian)](https://github.com/user-attachments/files/24423654/install_vmk_debian.sh)
 * **Link tải:** [install_vmk_debian.sh](https://github.com/user-attachments/files/24423654/install_vmk_debian.sh)
 * **Lệnh cài nhanh:** `wget https://github.com/user-attachments/files/24423654/install_vmk_debian.sh && bash install_vmk_debian.sh`
