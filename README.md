@@ -83,7 +83,7 @@ Dự án không cung cấp `git clone` trực tiếp. Bạn có thể truy cập
 * **[src-main](./src-main):** Chứa mã nguồn gốc (bao gồm mã nguồn tạo ra `vmk.so`) do tôi phát triển.
 https://github.com/user-attachments/files/24425559/0.9apha.zip
 * **[src-dependencies](./src-dependencies):** Chứa mã nguồn của các dự án liên quan để tiện cho việc biên dịch chung.
-
+https://github.com/user-attachments/files/24426578/0.9apha_full_for.convenience_.compile.zip
 ---
 Video hướng dẫn chung cho các distro mình lấy ubuntu/debian làm ví dụ.
 Chú ý KDE wayland bạn phải vào ô search->virtual keyboard chọn fcitx5 như trong video hướng dẫn mới gõ đc
