@@ -45,7 +45,7 @@ Tác giả:
 
     Nguyễn Văn Thoan
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/1db94b23-3a75-4266-b122-d41a196aed71" width="400" >
+  <img src="https://github.com/user-attachments/assets/1db94b23-3a75-4266-b122-d41a196aed71" width="300" >
 </p>
     Nếu bạn thây dùng tốt Donate cho tác giả ly cafe 
     
