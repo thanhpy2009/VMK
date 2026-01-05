@@ -44,6 +44,10 @@ Tác giả:
     Võ Ngô Hoàng Thành (thanhpy2009@gmail.com)
 
     Nguyễn Văn Thoan
+![20bffcd0cd3e42601b2f](https://github.com/user-attachments/assets/1db94b23-3a75-4266-b122-d41a196aed71)
+
+    Nếu bạn thây dùng tốt Donate cho tác giả ly cafe 
+    
    ## 📋 Danh sách các phiên bản hỗ trợ
 
 Script và mã nguồn được thiết kế để hoạt động tốt nhất trên các phiên bản hệ điều hành mới nhất tính đến ngày **05/01/2026**:
