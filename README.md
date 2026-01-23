@@ -20,11 +20,30 @@ VMK giải quyết vấn đề này bằng cách:
 
 VMK không bắt người dùng phải đau đầu lựa chọn hàng chục chế độ. Chúng tôi tập trung tối ưu hóa 3 phương thức cốt lõi để đảm bảo trải nghiệm gõ luôn thông suốt:
 
+## Các Chế Độ Gõ Của VMK
+
 | Chế độ | Tên kỹ thuật | Mô tả cơ chế | Độ tương thích |
 | :--- | :--- | :--- | :---: |
-| **VMK1** | **UniKey(windows) like** | Mô phỏng cơ chế gửi phím Backspace vật lý để xóa và tái tạo ký tự (như UniKey trên Windows). Đây là chế độ chủ đạo giúp loại bỏ hoàn toàn vùng đệm (preedit). | **> 90%** |
-| **VMK2** | **Modern Surrounding** | Sử dụng API `Surrounding Text` của hệ thống để xóa/thay thế văn bản. Được kết hợp thuật toán tối ưu của tác giả giúp tốc độ gõ cực nhanh và mượt mà. | **~ 50%** |
-| **VMK-Pre** | **Standard Preedit** | Sử dụng preedit truyền thống của Fcitx5. Đây là cơ chế tiêu chuẩn của hệ điều hành, đóng vai trò là phương án dự phòng hoàn hảo cho mọi ứng dụng. | **100%** |
+| **VMK1** | **UniKey(windows) like** | Mô phỏng cơ chế gửi phím Backspace vật lý để xóa và tái tạo ký tự (giống UniKey trên Windows). Loại bỏ hoàn toàn vùng đệm (preedit). | **> 90%** |
+| **VMK1HC** | **VMK1 Enhanced (Hard Core)** | **Phiên bản VMK1 tương thích tốt hơn nữa.** Lưu trạng thái vào `/tmp` (RAM trên SystemD) để giữ engine không bị xóa khi XIM lỗi. | **Tối ưu nhất cho IDE** |
+| **VMK2** | **Modern Surrounding** | Sử dụng API `Surrounding Text` kết hợp thuật toán tối ưu của tác giả giúp tốc độ gõ cực nhanh và mượt mà. | **~ 50%** |
+| **VMK-Pre** | **Standard Preedit** | Sử dụng preedit truyền thống của Fcitx5. Đây là cơ chế tiêu chuẩn, đóng vai trò phương án dự phòng hoàn hảo. | **100%** |
+
+---
+
+### Thông Tin Chi Tiết Về VMK1HC (Hard Core)
+Chế độ này được thiết kế đặc biệt cho các môi trường làm việc chuyên sâu:
+* **Cơ chế:** Lưu trạng thái gõ vào thư mục `/tmp`. Đối với các distro sử dụng **systemd**, dữ liệu này sẽ nằm trực tiếp trên RAM.
+* **Mục tiêu:** Khắc phục tình trạng engine bị xóa khi Fcitx5 mất kết nối với các phần mềm do giao thức XIM quá lỗi thời.
+* **Ứng dụng:** Giúp các IDE phổ biến như **PyCharm, IntelliJ IDEA, Android Studio, VS Code...** hoạt động ổn định và mượt mà hơn rất nhiều.
+
+### Thử Nghiệm Trên Môi Trường Wine (Bonus)
+Mặc dù VMK không hỗ trợ chính thức cho Wine, nhưng qua thực nghiệm thực tế VMK1HC:
+* Hoạt động tốt với các ứng dụng: **MS Office 2013/2007**, **Notepad++**, **Zalo (Proton)**...
+* Người dùng có thể sử dụng trực tiếp VMK mà không cần cài đặt thêm bộ gõ UniKey trên Wine.
+* **Lưu ý:** Đây là kết quả thử nghiệm cá nhân, không có đảm bảo chính thức vì Wine không phải là môi trường Linux native.
+
+---
 
 ---
 
@@ -57,7 +76,7 @@ Hiện tại mình Nói rõ là bộ gõ hoạt động tốt với Wayland (Gno
 * **Debian:** Phiên bản **13 (Trixie)** trở về sau.
 * **Fedora:** Phiên bản **43** trở về sau.
 * **Arch Linux:** Các bản cài đặt từ ngày **05/01/2026** trở về sau.
-* **openSUSE Tumbleweed:** Các bản cập nhật từ ngày **05/01/2026** trở về sau.
+* **openSUSE LEAF:** 
   Dùng tốt nhất trên KDE và Gnome wayland bản mới nhất. Ngoài linux Mint cũng là lựa chọn tối ưu 
 
 ### ⚙️ Yêu cầu tương thích
