@@ -1,0 +1,11 @@
+[Addon]
+Name=vmk Wrapper For Fcitx
+Category=InputMethod
+Version=0.9
+Enabled=True
+Library=libvmk
+Type=SharedLibrary
+OnDemand=True
+Configurable=True
+[Dependencies]
+0=core:5.0.22
