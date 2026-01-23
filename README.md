@@ -52,10 +52,7 @@ note: vmk ko trực tiếp fix khi gõ thanh địa chỉ firefox tuy nhiên có
 ---
 
 ### 📥 Cách cập nhật lên 0.9.3 Alpha
-Hiện tại, để cập nhật các bản vá mới nhất, bạn vui lòng:
-1. Đóng Fcitx5 hiện tại bằng lệnh:
-   ```bash
-   dbus-send --type=method_call --dest=org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.Exit
+link tải bên dưới. Cài mà không cần gỡ bản cũ. Nó tự gỡ và cài bản mới vào
 ### Thông Tin Chi Tiết Về VMK1HC (Hard Core)
 Chế độ này được thiết kế đặc biệt cho các môi trường làm việc chuyên sâu:
 * **Cơ chế:** Lưu trạng thái gõ vào thư mục `/tmp`. Đối với các distro sử dụng **systemd**, dữ liệu này sẽ nằm trực tiếp trên RAM.
