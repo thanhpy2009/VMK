@@ -25,12 +25,37 @@ VMK không bắt người dùng phải đau đầu lựa chọn hàng chục ch�
 | Chế độ | Tên kỹ thuật | Mô tả cơ chế | Độ tương thích |
 | :--- | :--- | :--- | :---: |
 | **VMK1** | **UniKey(windows) like** | Mô phỏng cơ chế gửi phím Backspace vật lý để xóa và tái tạo ký tự (giống UniKey trên Windows). Loại bỏ hoàn toàn vùng đệm (preedit). | **> 90%** |
-| **VMK1HC** | **VMK1 Enhanced (Hard Core)** | **Phiên bản VMK1 tương thích tốt hơn nữa.** Lưu trạng thái vào `/tmp` (RAM trên SystemD) để giữ engine không bị xóa khi XIM lỗi. | **Tối ưu nhất cho IDE** |
+| **VMK1HC** | **VMK1 Enhanced (Hard Core)** | **Phiên bản VMK1 tương thích tốt hơn nữa. Sẽ thay thế VMK1 trong các bản sau** Lưu trạng thái vào `/tmp` (RAM trên SystemD) để giữ engine không bị xóa khi XIM lỗi. | **Tối ưu nhất cho IDE** |
 | **VMK2** | **Modern Surrounding** | Sử dụng API `Surrounding Text` kết hợp thuật toán tối ưu của tác giả giúp tốc độ gõ cực nhanh và mượt mà. | **~ 50%** |
 | **VMK-Pre** | **Standard Preedit** | Sử dụng preedit truyền thống của Fcitx5. Đây là cơ chế tiêu chuẩn, đóng vai trò phương án dự phòng hoàn hảo. | **100%** |
 
 ---
+## 🚀 VMK 0.9.3 Alpha – Patch Notes
 
+Bản cập nhật quan trọng tập trung vào tối ưu hóa kiến trúc phần cứng hiện đại và sửa lỗi tương thích trên các trình duyệt phổ biến.
+
+### 🛠️ Cải tiến hệ thống (Improvements)
+* **Thuật toán Delay thông minh:** Tối ưu hóa logic phản hồi phím, mang lại cảm giác gõ mượt mà và giảm thiểu tối đa lỗi nhập liệu (input lag).
+* **IDE Specialized Fix:** Tích hợp cơ chế sửa lỗi sai dấu dành riêng cho các môi trường lập trình (JetBrains, VS Code) bằng VMK1HC.
+
+### ⚡ Hiệu suất & Phần cứng (Performance)
+* **E-core Optimization:** Khắc phục triệt để lỗi Race Condition do hệ thống đưa tiến trình vào nhân hiệu suất thấp (E-core) trên các dòng CPU mới.
+* **CPU Usage:** Sửa lỗi rò rỉ hiệu năng gây chiếm dụng 100% CPU trên một nhân đơn lẻ.
+
+### 🌐 Sửa lỗi Trình duyệt (Browser Fixes)
+* **Google Chrome:**
+  * Sửa lỗi lặp ký tự (double character) trên thanh địa chỉ do xung đột cơ chế autofill trình duyệt chrome based
+  * Khắc phục lỗi mất ký tự đầu tiên khi gõ trang **Gemini** Chrome based trong KDE.
+  * Vì lỗi biến mất ký tự trên thanh địa chỉ cho người dùng **Linux Mint (X11)**. Tôi tạm thời có 1 chế độ chrome X11 bạn tích vào chrome được chuyển sang chế độ preedit tự động X11 nếu chọn VMK1/VMk1hc nếu bạn bị mất chữ thì tích vào các phần mềm khác sẽ về chế độ không preedit tự động không cần chọn lại,  
+note: vmk ko trực tiếp fix khi gõ thanh địa chỉ firefox tuy nhiên có cách chỉnh setting firefox. Tôi hướng dẫn trong video
+
+---
+
+### 📥 Cách cập nhật lên 0.9.3 Alpha
+Hiện tại, để cập nhật các bản vá mới nhất, bạn vui lòng:
+1. Đóng Fcitx5 hiện tại bằng lệnh:
+   ```bash
+   dbus-send --type=method_call --dest=org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.Exit
 ### Thông Tin Chi Tiết Về VMK1HC (Hard Core)
 Chế độ này được thiết kế đặc biệt cho các môi trường làm việc chuyên sâu:
 * **Cơ chế:** Lưu trạng thái gõ vào thư mục `/tmp`. Đối với các distro sử dụng **systemd**, dữ liệu này sẽ nằm trực tiếp trên RAM.
