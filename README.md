@@ -120,12 +120,21 @@ Chú ý KDE wayland bạn phải vào ô search->virtual keyboard chọn fcitx5 
 Sau khi tải script về, bạn hãy mở Terminal tại thư mục chứa file và chạy các lệnh sau:
 
 ### 🛠️ Các bước thực hiện chung:
+#### Bước 0: Chuẩn bị hệ thống
+Để VMK hoạt động tốt nhất và tránh xung đột bộ gõ, bạn nên thực hiện các chuẩn bị sau:
+
+* **Khuyến nghị về IBus:** Bạn nên cân nhắc gỡ bỏ hoàn toàn IBus khỏi hệ thống để tránh xung đột phím tắt và engine gõ.
+* **Tắt Fcitx5 đang chạy:** Trước khi cài đặt phiên bản mới, hãy đóng an toàn phiên bản hiện tại bằng lệnh D-Bus:
+  ```bash
+  dbus-send --type=method_call --dest=org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.Exit
 1. **Di chuyển vào thư mục:** `cd đường_dẫn_đến_thư_mục`
 2. **Cấp quyền thực thi:** `chmod +x ./tên_file_script.sh`
 3. **Chạy với quyền quản trị:** `sudo ./tên_file_script.sh`
 
 ---
-
+Khởi động lại vào Terminal 
+fcitx5 
+ctrl+space để chuyển bộ gõ. chi tiết hơn sẽ có trong video
 ví dụ dành cho deian
 [![Download](https://img.shields.io/badge/Download-Debian%20%2F%20Ubuntu-orange?style=for-the-badge&logo=debian)](https://github.com/user-attachments/files/24423654/install_vmk_debian.sh)
 * **Lệnh cài nhanh:** 
