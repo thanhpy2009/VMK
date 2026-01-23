@@ -134,6 +134,7 @@ ctrl+space để chuyển bộ gõ. chi tiết hơn sẽ có trong video
 ví dụ dành cho deian
 [![Download](https://img.shields.io/badge/Download-Debian%20%2F%20Ubuntu-orange?style=for-the-badge&logo=debian)](https://github.com/user-attachments/files/24423654/install_vmk_debian.sh)
 * **Lệnh cài nhanh:** 
+  dbus-send --type=method_call --dest=org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.Exit
 chmod +x ./install_vmk_debian.sh && sudo ./install_vmk_debian.sh
 Nếu bạn đang sử dụng môi trường Desktop KDE trên giao thức Wayland, bạn cần thực hiện thêm bước sau để bộ gõ hoạt động:
 
