@@ -202,3 +202,6 @@ Nếu bạn đang sử dụng môi trường Desktop KDE trên giao thức Wayla
 ### 🦎 5. openSUSE
 [![Download openSUSE](https://img.shields.io/badge/Download-openSUSE-73BA48?style=for-the-badge&logo=opensuse)](https://github.com/user-attachments/files/24828570/install_vmk_opensuse_0.9.3.sh)
 * **Link tải:** [install_vmk_opensuse_0.9.3.sh](https://github.com/user-attachments/files/24828570/install_vmk_opensuse_0.9.3.sh)
+
+Uninstaller dành cho cả 4 distro
+* **Link tải:**https://github.com/user-attachments/files/24910982/Uninstaller_vmk.sh
