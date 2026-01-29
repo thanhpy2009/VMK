@@ -1,8 +1,7 @@
 /*
- * SPDX-FileCopyrightText: 2025 CSSlayer <thanhpy2009@gmail.com>
+ * SPDX-FileCopyrightText: 2025 Võ Ngô Hoàng Thành <thanhpy2009@gmail.com>
  *
- * SPDX-License-Identifier: GPLv3.0
- *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 #include "vmk.h"
 
