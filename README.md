@@ -34,7 +34,8 @@ VMK không bắt người dùng phải đau đầu lựa chọn hàng chục ch�
 
 ---
 ## 🚀 VMK 0.9.3 Alpha – Patch Notes
-
+Src code được dẫn link đến folder gốc nếu bạn tải src về tự tải thư mục https://github.com/fcitx/fcitx5-bamboo/tree/main/bamboo về bỏ file VMK
+/src-full để compile nhé. Mình không hỗ trợ gì thêm vì có vẽ git không cho phép link về thư muc sub
 Bản cập nhật quan trọng tập trung vào tối ưu hóa kiến trúc phần cứng hiện đại và sửa lỗi tương thích trên các trình duyệt phổ biến.
 
 ### 🛠️ Cải tiến hệ thống (Improvements)
