@@ -1,0 +1,6 @@
+[InputMethod]
+Name=Bamboo
+Icon=fcitx_bamboo
+LangCode=vi
+Addon=bamboo
+Configurable=True
