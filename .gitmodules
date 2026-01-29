@@ -1,0 +1,3 @@
+[submodule "src-full/bamboo"]
+	path = src-full/bamboo
+	url = https://github.com/fcitx/fcitx5-bamboo.git
