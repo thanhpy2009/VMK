@@ -1,0 +1,114 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the fcitx5-bamboo package.
+#
+# Translators:
+# roxfr <roxfr@outlook.fr>, 2022
+# Popolon_Github, 2025
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fcitx5-bamboo\n"
+"Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+"POT-Creation-Date: 2025-09-12 20:24+0000\n"
+"PO-Revision-Date: 2022-06-04 06:04+0000\n"
+"Last-Translator: Popolon_Github, 2025\n"
+"Language-Team: French (https://app.transifex.com/fcitx/teams/12005/fr/)\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+#: src/bambooconfig.h:127
+msgid "Allow type with more freedom"
+msgstr "Autoriser le type avec plus de liberté"
+
+#: src/bambooconfig.h:122
+msgid "Auto restore keys with invalid words"
+msgstr "Clés de restauration automatique avec des mots invalides"
+
+#: org.fcitx.Fcitx5.Addon.Bamboo.metainfo.xml.in:7 src/bamboo.conf.in:2
+msgid "Bamboo"
+msgstr "Bamboo"
+
+#: src/bamboo-addon.conf.in.in:2
+msgid "Bamboo Wrapper For Fcitx"
+msgstr "Bamboo Wrapper pour Fcitx"
+
+#: src/bambooconfig.h:119
+msgid "Capitalize Macro"
+msgstr "Majuscule macro"
+
+#: src/bambooconfig.h:95 src/bambooconfig.h:130
+msgid "Custom Keymap"
+msgstr "Keymap personnalisé"
+
+#: src/bambooconfig.h:118
+msgid "Enable Macro"
+msgstr "Activer macro"
+
+#: src/bambooconfig.h:117
+msgid "Enable spell check"
+msgstr "Activer la vérification orthographique"
+
+#: src/bambooconfig.h:113 src/bamboo.cpp:252
+msgid "Input Method"
+msgstr "Méthode de saisie"
+
+#: src/bambooconfig.h:76
+msgid "Key"
+msgstr "Clé"
+
+#: src/bambooconfig.h:84 src/bamboo.cpp:320
+msgid "Macro"
+msgstr "Macro"
+
+#: src/bamboo.cpp:483
+msgid "Macro Disabled"
+msgstr "Macro désactivée"
+
+#: src/bamboo.cpp:482
+msgid "Macro Enabled"
+msgstr "Macro activée"
+
+#: src/bambooconfig.h:116
+msgid "Output Charset"
+msgstr "Jeu de caractères de sortie"
+
+#: src/bamboo.cpp:279
+msgid "Output charset"
+msgstr "Jeu de caractères de sortie"
+
+#: src/bambooconfig.h:108
+msgid "Restore Key Stroke"
+msgstr "Restaurer la frappe"
+
+#: src/bamboo.cpp:474
+msgid "Spell Check Disabled"
+msgstr "Vérification orthographique désactivée"
+
+#: src/bamboo.cpp:473
+msgid "Spell Check Enabled"
+msgstr "Vérification orthographique activée"
+
+#: src/bamboo.cpp:308
+msgid "Spell check"
+msgstr "Vérification orthographique"
+
+#: src/bambooconfig.h:129
+msgid "Underline the preedit text"
+msgstr "Souligner le texte pré-éditer"
+
+#: src/bambooconfig.h:125
+msgid "Use oà, _uý (instead of òa, úy)"
+msgstr "Utiliser oà, _uý (au lieu de òa, úy)"
+
+#: src/bambooconfig.h:77
+msgid "Value"
+msgstr "Valeur"
+
+#: org.fcitx.Fcitx5.Addon.Bamboo.metainfo.xml.in:8
+msgid "Vietnamese input method"
+msgstr "Méthode de saisie du vietnamien"

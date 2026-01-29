@@ -1,0 +1,12 @@
+[Addon]
+Name=Bamboo Wrapper For Fcitx
+Category=InputMethod
+Version=@PROJECT_VERSION@
+Enabled=True
+Library=libbamboo
+Type=SharedLibrary
+OnDemand=True
+Configurable=True
+
+[Dependencies]
+0=core:@REQUIRED_FCITX_VERSION@
