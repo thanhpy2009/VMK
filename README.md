@@ -16,6 +16,7 @@ VMK giải quyết vấn đề này bằng cách:
     Đơn giản hóa: Tập trung vào hiệu quả thực tế thay vì cấu hình phức tạp.
 
     Đặc biệt bộ cài Đơn giản người dùng chỉ cần cài 1 file setup duy nhất và dùng không cần chỉnh config nhiều có thể gõ chữ TV ngay.
+    Lưu ý mình ko Rep bất cứ lỗi trên FB nếu ko có ticket
 ### 🛠 Các cơ chế gõ của VMK
     Có hướng dẫn chi tiết test chi tiết patch note chi tiết
 
