@@ -182,7 +182,7 @@ int main(int argc, char* argv[]) {
     strncpy(addr.sun_path, socket_path.c_str(), sizeof(addr.sun_path) - 1);
     unlink(socket_path.c_str());
     bind(server_fd, (struct sockaddr*)&addr, sizeof(addr));
-    chmod(socket_path.c_str(), 0660);
+  //  chmod(socket_path.c_str(), 0666);
     listen(server_fd, 5);
 
     // Chạy luồng monitor chuột/touchpad
