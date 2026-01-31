@@ -3,7 +3,10 @@ Phần mềm gõ tiếng việt VMK
 (VMK (Vietnamese Micro Key) for Fcitx5)
 
 VMK là bộ gõ tiếng Việt dành cho Fcitx5, được phát triển với mục tiêu mang lại trải nghiệm gõ non-preedit hoàn hảo trên Linux, mô phỏng chính xác cơ chế hoạt động huyền thoại của UniKey trên Windows.
-
+GHi chú: Phiên bản 0.9.31 là phiên bản vá lỗi 666 trong file cpp ngay từ đầu đã không có lỗi bảo mật vì file quản lý serivce mới là bên set quyền
+ 
+ Phiên bản 0.9.41 là phiên bản tạo bảo mật 2 lớp. hiện đang trong thử nghiệm đầu tiên user thông thường chưa nên tải về
+ 
 Disclaimer: This software is in Alpha. Bug reports are welcome via tickets. As a free Open Source project, we value constructive feedback over drama. This project is my youth dream. I will never leave Git or give up, no matter the drama or negativity. I'm here to build, to learn, and to keep this dream alive
 I address all issues and tickets publicly. I reserve the right to close any ticket at my discretionThere is no reason to turn a technical issue into drama on Facebook. If you find a bug, open a ticket
 
