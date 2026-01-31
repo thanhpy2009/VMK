@@ -3,6 +3,14 @@ Phần mềm gõ tiếng việt VMK
 (VMK (Vietnamese Micro Key) for Fcitx5)
 
 VMK là bộ gõ tiếng Việt dành cho Fcitx5, được phát triển với mục tiêu mang lại trải nghiệm gõ non-preedit hoàn hảo trên Linux, mô phỏng chính xác cơ chế hoạt động huyền thoại của UniKey trên Windows.
+
+Disclaimer: This software is in Alpha. Bug reports are welcome via tickets. As a free Open Source project, we value constructive feedback over drama. This project is my youth dream. I will never leave Git or give up, no matter the drama or negativity. I'm here to build, to learn, and to keep this dream alive
+I address all issues and tickets publicly. I reserve the right to close any ticket at my discretionThere is no reason to turn a technical issue into drama on Facebook. If you find a bug, open a ticket
+
+I am truly happy. Despite all the drama, there are so many people out there supporting and contributing to my dream. Thank you for standing with me
+
+I use AI to code, but I am not stupid. It's a tool, and I am the architect. AI under my command. Grow up! Don't let yourself fall behind just because you refuse to use AI
+
 💡 Tại sao lại là VMK?
 
 Trong nhiều năm qua, người dùng Linux luôn gặp khó khăn với việc gõ tiếng Việt trên Wayland hoặc các ứng dụng Electron (Chrome, Discord...). Các bộ gõ hiện tại thường gây bối rối với quá nhiều chế độ (Modes) hoặc gặp lỗi gạch chân (preedit) gây khó chịu.
@@ -16,7 +24,11 @@ VMK giải quyết vấn đề này bằng cách:
     Đơn giản hóa: Tập trung vào hiệu quả thực tế thay vì cấu hình phức tạp.
 
     Đặc biệt bộ cài Đơn giản người dùng chỉ cần cài 1 file setup duy nhất và dùng không cần chỉnh config nhiều có thể gõ chữ TV ngay.
+    Lưu ý mình ko Rep bất cứ lỗi trên FB nếu ko có ticket
 ### 🛠 Các cơ chế gõ của VMK
+    Có hướng dẫn chi tiết test chi tiết patch note chi tiết
+
+    https://www.youtube.com/@ThanhThanh-it1pm
 
 VMK không bắt người dùng phải đau đầu lựa chọn hàng chục chế độ. Chúng tôi tập trung tối ưu hóa 3 phương thức cốt lõi để đảm bảo trải nghiệm gõ luôn thông suốt:
 
@@ -30,8 +42,9 @@ VMK không bắt người dùng phải đau đầu lựa chọn hàng chục ch�
 | **VMK-Pre** | **Standard Preedit** | Sử dụng preedit truyền thống của Fcitx5. Đây là cơ chế tiêu chuẩn, đóng vai trò phương án dự phòng hoàn hảo. | **100%** |
 
 ---
-## 🚀 VMK 0.9.3 Alpha – Patch Notes
-
+## 🚀 VMK 0.9.31 Alpha – Patch Notes
+Src code được dẫn link đến folder gốc nếu bạn tải src về tự tải thư mục https://github.com/fcitx/fcitx5-bamboo/tree/main/bamboo về bỏ file VMK
+/src-full để compile nhé. Mình không hỗ trợ gì thêm vì có vẽ git không cho phép link về thư muc sub
 Bản cập nhật quan trọng tập trung vào tối ưu hóa kiến trúc phần cứng hiện đại và sửa lỗi tương thích trên các trình duyệt phổ biến.
 
 ### 🛠️ Cải tiến hệ thống (Improvements)
@@ -50,8 +63,8 @@ Bản cập nhật quan trọng tập trung vào tối ưu hóa kiến trúc ph�
 note: vmk ko trực tiếp fix khi gõ thanh địa chỉ firefox tuy nhiên có cách chỉnh setting firefox. Tôi hướng dẫn trong video
 
 ---
-
-### 📥 Cách cập nhật lên 0.9.3 Alpha
+### 🌐 Sửa lỗi cấp quyền bảo mật 666 file sevrer
+### 📥 Cách cập nhật lên 0.9.31 Alpha
 link tải bên dưới. Cài mà không cần gỡ bản cũ. Nó tự gỡ và cài bản mới vào
 ### Thông Tin Chi Tiết Về VMK1HC (Hard Core)
 Chế độ này được thiết kế đặc biệt cho các môi trường làm việc chuyên sâu:
@@ -169,11 +182,12 @@ Nếu bạn đang sử dụng môi trường Desktop KDE trên giao thức Wayla
 <img width="980" height="690" alt="ảnh" src="https://github.com/user-attachments/assets/55328eb4-8f96-44a8-82ba-08600b8eaba6" />
 ào home chạy file sconfig để cấu gõ thôi
 <img width="866" height="557" alt="ảnh" src="https://github.com/user-attachments/assets/29c84587-8b95-4b2d-b314-9daf90d0f59c" />
+VMK_0.9.31 alpha
 
-
+## VMK Installer Scripts
 ### 🐧 1. Debian / Ubuntu (non-GNOME) (Bao gồm cả Linux Mint)
-[![Download Debian](https://img.shields.io/badge/Download-Debian%20%2F%20Ubuntu-orange?style=for-the-badge&logo=debian)](https://github.com/user-attachments/files/24828567/install_vmk_debian_0.9.3.sh)
-* **Link tải:** [install_vmk_debian_0.9.3.sh](https://github.com/user-attachments/files/24828567/install_vmk_debian_0.9.3.sh)
+[![Download Debian](https://img.shields.io/badge/Download-Debian%20%2F%20Ubuntu-orange?style=for-the-badge&logo=debian)](https://github.com/user-attachments/files/24973274/install_vmk_debian_0.9.31.sh)
+* **Link tải:** [install_vmk_debian_0.9.31.sh](https://github.com/user-attachments/files/24973274/install_vmk_debian_0.9.31.sh)
 
 
 ### 🏢 2. Ubuntu 24.04 (GNOME)
@@ -183,19 +197,51 @@ Nếu bạn đang sử dụng môi trường Desktop KDE trên giao thức Wayla
 ---
 
 ### 🔵 3. Fedora
-[![Download Fedora](https://img.shields.io/badge/Download-Fedora-51A2DA?style=for-the-badge&logo=fedora)](https://github.com/user-attachments/files/24828564/install_vmk_fedora_0.9.3.sh)
-* **Link tải:** [install_vmk_fedora_0.9.3.sh](https://github.com/user-attachments/files/24828564/install_vmk_fedora_0.9.3.sh)
-
+[![Download Fedora](https://img.shields.io/badge/Download-Fedora-51A2DA?style=for-the-badge&logo=fedora)](https://github.com/user-attachments/files/24973275/install_vmk_fedora_0.9.31.sh)
+* **Link tải:** [install_vmk_fedora_0.9.31.sh](https://github.com/user-attachments/files/24973275/install_vmk_fedora_0.9.31.sh)
 
 ---
 
 ### 🏹 4. Arch Linux
-[![Download Arch](https://img.shields.io/badge/Download-Arch%20Linux-1793D1?style=for-the-badge&logo=arch-linux)](https://github.com/user-attachments/files/24828599/install_vmk_arch_0.9.3.sh)
-* **Link tải:** [install_vmk_arch_0.9.3.sh](https://github.com/user-attachments/files/24830972/install_vmk_arch_0.9.3.sh)
-
+[![Download Arch](https://img.shields.io/badge/Download-Arch%20Linux-1793D1?style=for-the-badge&logo=arch-linux)](https://github.com/user-attachments/files/24973277/install_vmk_arch_0.9.31.sh)
+* **Link tải:** [install_vmk_arch_0.9.31.sh](https://github.com/user-attachments/files/24973277/install_vmk_arch_0.9.31.sh)
 
 ---
 
 ### 🦎 5. openSUSE
-[![Download openSUSE](https://img.shields.io/badge/Download-openSUSE-73BA48?style=for-the-badge&logo=opensuse)](https://github.com/user-attachments/files/24828570/install_vmk_opensuse_0.9.3.sh)
-* **Link tải:** [install_vmk_opensuse_0.9.3.sh](https://github.com/user-attachments/files/24828570/install_vmk_opensuse_0.9.3.sh)
+[![Download openSUSE](https://img.shields.io/badge/Download-openSUSE-73BA48?style=for-the-badge&logo=opensuse)](https://github.com/user-attachments/files/24973276/install_vmk_opensuse_0.9.31.sh)
+* **Link tải:** [install_vmk_opensuse_0.9.31.sh](https://github.com/user-attachments/files/24973276/install_vmk_opensuse_0.9.31.sh)
+
+---
+
+Uninstaller dành cho cả 4 distro
+* **Link tải:** https://github.com/user-attachments/files/24910982/Uninstaller_vmk.sh
+
+
+
+Bash
+## 🛠️ Cấu hình biến môi trường (Environment Variables)
+
+Nếu bạn gặp vấn đề không gõ được trong một số phần mềm, hãy thêm các biến môi trường để tương thích tốt hơn.  
+*(Lưu ý: GNOME Wayland thường không cần bước này).*
+
+### 1. Cấu hình cho Người dùng (User level)
+Mở tệp bằng lệnh: `nano ~/.profile` và thêm các dòng sau vào cuối:
+
+```bash
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export SDL_IM_MODULE=fcitx
+export GLFW_IM_MODULE=ibus
+2. Cấu hình trong​
+
+Mở tệp bằng quyền root: sudo nano /etc/environment và thêm:
+
+
+
+GTK_IM_MODULE=fcitx
+QT_IM_MODULE=fcitx
+XMODIFIERS=@im=fcitx
+SDL_IM_MODULE=fcitx
+GLFW_IM_MODULE=ibus
