@@ -220,6 +220,7 @@ Uninstaller dành cho cả 4 distro
 Bản thử nghiệm bảo mật 2 lớp. Đừng tải về vì đang giai đoạn thử nghiệm chỉ dành cho dev. chi tiết bản vá lý do
 
 https://github.com/thanhpy2009/VMK/issues/13
+
 https://github.com/user-attachments/files/24985564/install_vmk_arch_0.9.41alpha.sh
 
 Bash
