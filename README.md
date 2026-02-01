@@ -224,7 +224,7 @@ Uninstaller dành cho cả 4 distro
 Bản thử nghiệm bảo mật 2 lớp. Đừng tải về vì đang giai đoạn thử nghiệm chỉ dành cho dev. chi tiết bản vá lý do
 👉 https://github.com/thanhpy2009/VMK/issues/13
 bản siêu thử nghiệm dành cho dev. user đừng tải
-https://github.com/user-attachments/files/24985564/install_vmk_arch_0.9.41alpha.sh
+->tạm thời xóa bản 0.9.41 này vì có bug khi cài cập nhật sau
 
 Bash
 ## 🛠️ Cấu hình biến môi trường (Environment Variables)
