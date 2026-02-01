@@ -8,7 +8,7 @@ Ghi chú: Phiên bản 0.9.31 là phiên bản vá lỗi 666 trong file cpp ngay
  
  Phiên bản 0.9.41 là phiên bản tạo bảo mật 2 lớp. hiện đang trong thử nghiệm đầu tiên user thông thường chưa nên tải về
  
-Disclaimer: This software is in Alpha. Bug reports are welcome press issue button. As a free Open Source project, we value constructive feedback over drama. This project is my youth dream. I will never leave Git or give up, no matter the drama or negativity. I'm here to build, to learn, and to keep this dream alive
+Disclaimer: This software is in Alpha. Bug reports are welcome to press issue button. As a free Open Source project, we value constructive feedback over drama. This project is my youth dream. I will never leave Git or give up, no matter the drama or negativity. I'm here to build, to learn, and to keep this dream alive
 I address all issues and tickets publicly. I reserve the right to close any ticket at my discretionThere is no reason to turn a technical issue into drama on Facebook. If you find a bug, open a ticket
 
 I am truly happy. Despite all the drama, there are so many people out there supporting and contributing to my dream. Thank you for standing with me
