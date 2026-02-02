@@ -222,7 +222,7 @@ Uninstaller dành cho cả 4 distro
 * **Link tải:** https://github.com/user-attachments/files/24910982/Uninstaller_vmk.sh
 
 Bản thử nghiệm bảo mật 2 lớp. Đừng tải về vì đang giai đoạn thử nghiệm chỉ dành cho dev. chi tiết bản vá lý do
-👉 https://github.com/thanhpy2009/VMK/issues/13
+👉 ''(https://github.com/thanhpy2009/VMK/issues/17)
 bản siêu thử nghiệm dành cho dev. user đừng tải
 ->tạm thời xóa bản 0.9.41 này vì có bug khi cài cập nhật sau
 
