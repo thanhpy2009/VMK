@@ -15,7 +15,9 @@ Ghi chú: Phiên bản 0.9.31 là phiên bản vá lỗi 666 trong file cpp ngay
   </a>
 </p>
 
-Thấy mọi người kì vọng ghê Luôn. Mình chỉ amature làm đến mức này là quá sức. Mình không có nhiều khả năng như mọi người nghĩ. Mình thấy các phần mềm của tập đoàn lớn họ cập nhật bảo mật cũng cần 1 tháng. Đây không phải là lỗ hổng bảo mật lớn như mọi người nghĩ. cảm ơn mọi người nha patch này mình chỉ ra với dạng file thử nghiệm. Mình sẽ test trước khi phát hành 1 tuần tức tuần sau mới có file cài với dạng thử nghiệm. Mình thấy là ổn hơn bảo mật 2 lớp bản thân Dbus nếu cấu hình tốt là độ bảo mật cao rồi được tin cậy trong linux. 
+Thấy mọi người kì vọng ghê Luôn. Mình chỉ amature làm đến mức này là quá sức. Mình không có nhiều khả năng như mọi người nghĩ. Mình thấy các phần mềm của tập đoàn lớn họ cập nhật bảo mật cũng cần 1 tháng. Đây không phải là lỗ hổng bảo mật lớn như mọi người nghĩ. Cảm ơn mọi người nha patch này mình chỉ ra với dạng file thử nghiệm. Mình sẽ test trước khi phát hành 1 tuần tức tuần sau mới có file cài với dạng thử nghiệm. Mình thấy là ổn hơn bảo mật 2 lớp bản thân Dbus nếu cấu hình tốt là độ bảo mật cao rồi được tin cậy trong linux. 
+Việc phát hành Source và đóng gói các bản sau đều do người khác đảm nhiệm . Và có tên trong readme. Sau khi ra 0.9.5 thử nghiệm. Dự kiến sẽ không ra bản mới 2-3 tháng tới. Không phải vì drama mà kế hoạch từ đầu. Mình chỉ code một mạch đạt tới unikey-clone thì mình dừng. 
+Cảm ơn các bạn đã ủng hộ
  
 💡 Tại sao lại là VMK?
 
