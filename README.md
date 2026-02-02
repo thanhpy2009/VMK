@@ -220,13 +220,20 @@ VMK_0.9.31 alpha
 
 Uninstaller dành cho cả 4 distro
 * **Link tải:** https://github.com/user-attachments/files/24910982/Uninstaller_vmk.sh
+Bản thử nghiệm 0.9.2 bảo mật 2 lớp. Đừng tải về vì đang giai đoạn thử nghiệm chỉ dành cho dev. chi tiết bản vá lý do
 
-Bản thử nghiệm bảo mật 2 lớp. Đừng tải về vì đang giai đoạn thử nghiệm chỉ dành cho dev. chi tiết bản vá lý do
-👉 ''(https://github.com/thanhpy2009/VMK/issues/17)
-bản siêu thử nghiệm dành cho dev. user đừng tải
 ->tạm thời xóa bản 0.9.41 này vì có bug khi cài cập nhật sau
+Trong linux user A đang dùng fcitx5, user B không có quyền truy cập vào /home/userA của userA thì có thể ghi trộm hay xòa file socket được không? câu trả lời là không user B không có quyền Trừ khi user B có quyền tương đương root hoặc user A đã share quyền cho B
+Một phần mềm bên thứ ba (không phải fcitx5 ) có thể là virus chạy cùng user về mặt kỹ thuật có thể tương tác với socket.
+Tuy nhiên socket của input method không có khả năng điều khiển chuột, vị trí con trỏ hoặc các sự kiện nhập liệu tùy ý.
+Tác động chỉ giới hạn ở một số hiệu ứng nhỏ (ví dụ backspace), nên mức độ ảnh hưởng thực tế rất thấp.
+Nếu một phần mềm đã có quyền user, nó có thể gây thiệt hại nghiêm trọng hơn nhiều (như xoá dữ liệu trong home), do đó kịch bản này không đại diện cho một rủi ro bảo mật thực tế.
 
-Bash
+Thử nghiệm Abstract Socket+mật khẩu là giây phut giờ tháng nằm. 
+https://www.youtube.com/watch?v=gML1yfkYsQE
+
+Mình đang cân nhắc bỏ vì nó không thực tế lắm hoặc thể chỉ dùng mật khẩu
+sau tết tính tiếp
 ## 🛠️ Cấu hình biến môi trường (Environment Variables)
 
 Nếu bạn gặp vấn đề không gõ được trong một số phần mềm, hãy thêm các biến môi trường để tương thích tốt hơn.  
