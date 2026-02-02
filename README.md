@@ -8,9 +8,15 @@ Phần mềm hiện đang ở giai đoạn alpha. Tác giả biết Bug từ ho�
 
 Ghi chú: Phiên bản 0.9.31 là phiên bản vá lỗi 666 trong file cpp ngay từ đầu đã không có lỗi bảo mật vì file quản lý serivce mới là bên set quyền
  
- Phiên bản 0.9.42 là phiên bản tạo bảo mật 2 lớp.  Abstract Socket+mật khẩu. Gõ được Đang hoạt động không ổn định. Đang cân nhắc chỉ dùng mật khẩu. Kéo xuống cuối bài để biết thêm chi tiết. cảm tưởng mình đang làm lầu 5 góc hoặc nasa. Bộ gõ không preddit hoạt động như unikey trong linux đã lầ vượt quá sự tưởng tượng
+ Cập nhật Phiên bản 0.9.5 demo. Dùng Dbus áp dụng check Dbus với mức độ bảo mật cao để không dùng file socket nữa.  
+<p align="center">
+  <a href="https://youtu.be/-pCALOigHts">
+    <img src="https://img.youtube.com/vi/-pCALOigHts/hqdefault.jpg" alt="Xem Video">
+  </a>
+</p>
 
-
+Thấy mọi người kì vọng ghê Luôn. Mình chỉ amature làm đến mức này là quá sức. Mình không có nhiều khả năng như mọi người nghĩ. Mình thấy các phần mềm của tập đoàn lớn họ cập nhật bảo mật cũng cần 1 tháng. Đây không phải là lỗ hổng bảo mật lớn như mọi người nghĩ. cảm ơn mọi người nha patch này mình chỉ ra với dạng file thử nghiệm. Mình sẽ test trước khi phát hành 1 tuần tức tuần sau mới có file cài với dạng thử nghiệm. Mình thấy là ổn hơn bảo mật 2 lớp bản thân Dbus nếu cấu hình tốt là độ bảo mật cao rồi được tin cậy trong linux. 
+ 
 💡 Tại sao lại là VMK?
 
 Trong nhiều năm qua, người dùng Linux luôn gặp khó khăn với việc gõ tiếng Việt trên Wayland hoặc các ứng dụng Electron (Chrome, Discord...). Các bộ gõ hiện tại thường gây bối rối với quá nhiều chế độ (Modes) hoặc gặp lỗi gạch chân (preedit) gây khó chịu.
