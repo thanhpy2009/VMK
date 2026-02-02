@@ -6,14 +6,8 @@ VMK là bộ gõ tiếng Việt dành cho Fcitx5, được phát triển với m
 
 Ghi chú: Phiên bản 0.9.31 là phiên bản vá lỗi 666 trong file cpp ngay từ đầu đã không có lỗi bảo mật vì file quản lý serivce mới là bên set quyền
  
- Phiên bản 0.9.41 là phiên bản tạo bảo mật 2 lớp. hiện đang trong thử nghiệm đầu tiên user thông thường chưa nên tải về
- 
-Disclaimer: This software is in Alpha. Bug reports are welcome . Feel free to click the 'New Issue' button. As a free Open Source project, we value constructive feedback over drama. This project is my youth dream. I will never leave Git or give up, no matter the drama or negativity. I'm here to build, to learn, and to keep this dream alive
-I address all issues and tickets publicly. I reserve the right to close any ticket at my discretionThere is no reason to turn a technical issue into drama on Facebook. If you find a bug, open a ticket
+ Phiên bản 0.9.42 là phiên bản tạo bảo mật 2 lớp.  Abstract Socket+mật khẩu. Đang cân nhắc chỉ dùng mật khẩu. Kéo xuống cuối bài để biết thêm chi tiết. 
 
-I am truly happy. Despite all the drama, there are so many people out there supporting and contributing to my dream. Thank you for standing with me
-
-I use AI to code, but I am not stupid. It's a tool, and I am the architect. AI under my command. Grow up! Don't let yourself fall behind just because you refuse to use AI
 
 💡 Tại sao lại là VMK?
 
@@ -220,7 +214,8 @@ VMK_0.9.31 alpha
 
 Uninstaller dành cho cả 4 distro
 * **Link tải:** https://github.com/user-attachments/files/24910982/Uninstaller_vmk.sh
-Bản thử nghiệm 0.9.2 bảo mật 2 lớp. Đừng tải về vì đang giai đoạn thử nghiệm chỉ dành cho dev. chi tiết bản vá lý do
+
+Cập nhật thử nghiệm bảo mật 2 lớp
 
 ->tạm thời xóa bản 0.9.41 này vì có bug khi cài cập nhật sau
 
