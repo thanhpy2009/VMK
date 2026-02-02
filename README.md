@@ -223,13 +223,15 @@ Uninstaller dành cho cả 4 distro
 Bản thử nghiệm 0.9.2 bảo mật 2 lớp. Đừng tải về vì đang giai đoạn thử nghiệm chỉ dành cho dev. chi tiết bản vá lý do
 
 ->tạm thời xóa bản 0.9.41 này vì có bug khi cài cập nhật sau
+
 Trong linux user A đang dùng fcitx5, user B không có quyền truy cập vào /home/userA của userA thì có thể ghi trộm hay xòa file socket được không? câu trả lời là không user B không có quyền Trừ khi user B có quyền tương đương root hoặc user A đã share quyền cho B
+
 Một phần mềm bên thứ ba (không phải fcitx5 ) có thể là virus chạy cùng user về mặt kỹ thuật có thể tương tác với socket.
 Tuy nhiên socket của input method không có khả năng điều khiển chuột, vị trí con trỏ hoặc các sự kiện nhập liệu tùy ý.
 Tác động chỉ giới hạn ở một số hiệu ứng nhỏ (ví dụ backspace), nên mức độ ảnh hưởng thực tế rất thấp.
 Nếu một phần mềm đã có quyền user, nó có thể gây thiệt hại nghiêm trọng hơn nhiều (như xoá dữ liệu trong home), do đó kịch bản này không đại diện cho một rủi ro bảo mật thực tế.
 
-Thử nghiệm Abstract Socket+mật khẩu là giây phut giờ tháng nằm. 
+Thử nghiệm Abstract Socket+mật khẩu là giây phut giờ tháng nằm. Để phần mềm virus có quyền user không ghi được socket. Video mô phỏng
 https://www.youtube.com/watch?v=gML1yfkYsQE
 
 Mình đang cân nhắc bỏ vì nó không thực tế lắm hoặc thể chỉ dùng mật khẩu
