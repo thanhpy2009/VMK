@@ -8,7 +8,7 @@ Phần mềm hiện đang ở giai đoạn alpha. Tác giả biết Bug từ ho�
 
 Ghi chú: Phiên bản 0.9.31 là phiên bản vá lỗi 666 trong file cpp ngay từ đầu đã không có lỗi bảo mật vì file quản lý serivce mới là bên set quyền
  
- Cập nhật Phiên bản 0.9.5 demo. Dùng Dbus áp dụng check Dbus với mức độ bảo mật cao để không dùng file socket nữa.  
+ Cập nhật Phiên bản 0.9.5 demo. Dùng Dbus áp dụng check Dbus với mức độ bảo mật cao để không dùng file socket nữa. Dù sao file socket biến mất vẫn tốt hơn bảo mật 2 lớp =)) 
 <p align="center">
   <a href="https://youtu.be/-pCALOigHts">
     <img src="https://img.youtube.com/vi/-pCALOigHts/hqdefault.jpg" alt="Xem Video">
