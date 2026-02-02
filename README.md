@@ -6,7 +6,7 @@ VMK là bộ gõ tiếng Việt dành cho Fcitx5, được phát triển với m
 
 Ghi chú: Phiên bản 0.9.31 là phiên bản vá lỗi 666 trong file cpp ngay từ đầu đã không có lỗi bảo mật vì file quản lý serivce mới là bên set quyền
  
- Phiên bản 0.9.42 là phiên bản tạo bảo mật 2 lớp.  Abstract Socket+mật khẩu. Đang cân nhắc chỉ dùng mật khẩu. Kéo xuống cuối bài để biết thêm chi tiết. cảm tưởng mình đang làm lầu 5 góc hoặc nasa. code được bộ gõ không preddit hoạt như unikey trong linux đã là viễn tưởng rồi   
+ Phiên bản 0.9.42 là phiên bản tạo bảo mật 2 lớp.  Abstract Socket+mật khẩu. Đang cân nhắc chỉ dùng mật khẩu. Kéo xuống cuối bài để biết thêm chi tiết. cảm tưởng mình đang làm lầu 5 góc hoặc nasa. code được bộ gõ không preddit hoạt động như unikey trong linux đã là viễn tưởng rồi   
 
 
 💡 Tại sao lại là VMK?
