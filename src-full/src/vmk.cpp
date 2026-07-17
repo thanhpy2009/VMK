@@ -234,10 +234,7 @@ public:
 
     void setOption() {
         if (!vmkEngine_) return;
-        // Defaults tuned for mixed VN/EN typing (coding, chat, browser):
-        // restore keystrokes when the current word is not valid Vietnamese,
-        // so English words like "clear" / "class" are not mangled by tone keys.
-        // Prefer Telex (not Telex W) so a lone "w" stays "w" instead of "ư".
+        // Đọc từ config (fcitx5-configtool / sconfig / menu tray) — không hard-code.
         FcitxBambooEngineOption option = {
             .autoNonVnRestore = *engine_->config().autoNonVnRestore,
             .ddFreeStyle = true,
@@ -247,9 +244,13 @@ public:
             .outputCharset = engine_->config().outputCharset->data(),
             .modernStyle = false,
             .freeMarking = *engine_->config().freeMarking,
+            .englishWordList = *engine_->config().englishWordList,
         };
         EngineSetOption(vmkEngine_.handle(), &option);
+        // English whitelist on/off — engine bamboo đọc flag qua refresh (nếu có)
+        // File từ: ~/.config/fcitx5/vmk-english-words.txt (kèm builtin)
     }
+
 
     bool connect_uinput_server() {
         if (uinput_client_fd_ >= 0) return true;
@@ -977,6 +978,81 @@ config_.chromex11.setValue(!*config_.chromex11);
         updateChromeX11Action(ic);
     }));
 uiManager.registerAction("vmk-chromex11", chromeX11Action_.get());
+
+    // --- Chức năng gõ EN/VN: bật/tắt trên menu tray, lưu conf/vmk.conf ---
+    autoNonVnAction_ = std::make_unique<SimpleAction>();
+    autoNonVnAction_->setLongText(
+        _("Giữ từ tiếng Anh — clear/with không bị dính dấu"));
+    autoNonVnAction_->setIcon("insert-text");
+    autoNonVnAction_->setCheckable(true);
+    connections_.emplace_back(autoNonVnAction_->connect<SimpleAction::Activated>(
+        [this](InputContext *ic) {
+            config_.autoNonVnRestore.setValue(!*config_.autoNonVnRestore);
+            saveConfig();
+            refreshOption();
+            updateAutoNonVnAction(ic);
+            if (ic)
+                ic->updateUserInterface(
+                    fcitx::UserInterfaceComponent::StatusArea);
+        }));
+    uiManager.registerAction("vmk-auto-non-vn", autoNonVnAction_.get());
+
+    spellCheckAction_ = std::make_unique<SimpleAction>();
+    spellCheckAction_->setLongText(
+        _("Kiểm tra từ điển tiếng Việt (spell check)"));
+    spellCheckAction_->setIcon("tools-check-spelling");
+    spellCheckAction_->setCheckable(true);
+    connections_.emplace_back(
+        spellCheckAction_->connect<SimpleAction::Activated>(
+            [this](InputContext *ic) {
+                config_.spellCheckWithDicts.setValue(
+                    !*config_.spellCheckWithDicts);
+                saveConfig();
+                refreshOption();
+                updateSpellCheckAction(ic);
+                if (ic)
+                    ic->updateUserInterface(
+                        fcitx::UserInterfaceComponent::StatusArea);
+            }));
+    uiManager.registerAction("vmk-spell-check", spellCheckAction_.get());
+
+    freeMarkingAction_ = std::make_unique<SimpleAction>();
+    freeMarkingAction_->setLongText(
+        _("Gõ dấu tự do (free marking) — kiểu UniKey"));
+    freeMarkingAction_->setIcon("format-text-direction-ltr");
+    freeMarkingAction_->setCheckable(true);
+    connections_.emplace_back(
+        freeMarkingAction_->connect<SimpleAction::Activated>(
+            [this](InputContext *ic) {
+                config_.freeMarking.setValue(!*config_.freeMarking);
+                saveConfig();
+                refreshOption();
+                updateFreeMarkingAction(ic);
+                if (ic)
+                    ic->updateUserInterface(
+                        fcitx::UserInterfaceComponent::StatusArea);
+            }));
+    uiManager.registerAction("vmk-free-marking", freeMarkingAction_.get());
+
+    englishWordListAction_ = std::make_unique<SimpleAction>();
+    englishWordListAction_->setLongText(
+        _("Whitelist từ tiếng Anh (~/.config/fcitx5/vmk-english-words.txt)"));
+    englishWordListAction_->setIcon("accessories-dictionary");
+    englishWordListAction_->setCheckable(true);
+    connections_.emplace_back(
+        englishWordListAction_->connect<SimpleAction::Activated>(
+            [this](InputContext *ic) {
+                config_.englishWordList.setValue(!*config_.englishWordList);
+                saveConfig();
+                refreshOption();
+                updateEnglishWordListAction(ic);
+                if (ic)
+                    ic->updateUserInterface(
+                        fcitx::UserInterfaceComponent::StatusArea);
+            }));
+    uiManager.registerAction("vmk-english-wordlist",
+                             englishWordListAction_.get());
+
     reloadConfig();
     instance_->inputContextManager().registerProperty("VMKState", &factory_);
 }
@@ -1003,7 +1079,19 @@ const Configuration *vmkEngine::getSubConfig(const std::string &path) const {
 
 void vmkEngine::setConfig(const RawConfig &config) { config_.load(config, true); saveConfig(); populateConfig(); }
 
-void vmkEngine::populateConfig() { refreshEngine(); refreshOption(); updateModeAction(nullptr); updateInputMethodAction(nullptr); updateCharsetAction(nullptr); updateGeminiAction(nullptr);updateChromeX11Action(nullptr); }
+void vmkEngine::populateConfig() {
+    refreshEngine();
+    refreshOption();
+    updateModeAction(nullptr);
+    updateInputMethodAction(nullptr);
+    updateCharsetAction(nullptr);
+    updateAutoNonVnAction(nullptr);
+    updateSpellCheckAction(nullptr);
+    updateFreeMarkingAction(nullptr);
+    updateEnglishWordListAction(nullptr);
+    updateGeminiAction(nullptr);
+    updateChromeX11Action(nullptr);
+}
 
 void vmkEngine::setSubConfig(const std::string &path, const RawConfig &config) {
     if (path == "custom_keymap") { customKeymap_.load(config, true); safeSaveAsIni(customKeymap_, CustomKeymapFile); refreshEngine(); }
@@ -1022,15 +1110,28 @@ void vmkEngine::activate(const InputMethodEntry &entry, InputContextEvent &event
     auto ic = event.inputContext();
     static std::atomic<bool> mouseThreadStarted{false};
     if (!mouseThreadStarted.exchange(true)) startMouseReset();
-    updateGeminiAction(event.inputContext());
     auto &statusArea = event.inputContext()->statusArea();
-    if (ic->capabilityFlags().test(fcitx::CapabilityFlag::Preedit)) instance_->inputContextManager().setPreeditEnabledByDefault(true);
-    reloadConfig(); updateModeAction(event.inputContext()); updateInputMethodAction(event.inputContext()); updateCharsetAction(event.inputContext());
+    if (ic->capabilityFlags().test(fcitx::CapabilityFlag::Preedit))
+        instance_->inputContextManager().setPreeditEnabledByDefault(true);
+    reloadConfig();
+    updateModeAction(event.inputContext());
+    updateInputMethodAction(event.inputContext());
+    updateCharsetAction(event.inputContext());
+    updateAutoNonVnAction(event.inputContext());
+    updateSpellCheckAction(event.inputContext());
+    updateFreeMarkingAction(event.inputContext());
+    updateEnglishWordListAction(event.inputContext());
+    updateGeminiAction(event.inputContext());
+    updateChromeX11Action(event.inputContext());
     statusArea.addAction(StatusGroup::InputMethod, modeAction_.get());
     statusArea.addAction(StatusGroup::InputMethod, inputMethodAction_.get());
     statusArea.addAction(StatusGroup::InputMethod, charsetAction_.get());
+    statusArea.addAction(StatusGroup::InputMethod, autoNonVnAction_.get());
+    statusArea.addAction(StatusGroup::InputMethod, spellCheckAction_.get());
+    statusArea.addAction(StatusGroup::InputMethod, freeMarkingAction_.get());
+    statusArea.addAction(StatusGroup::InputMethod, englishWordListAction_.get());
     statusArea.addAction(StatusGroup::InputMethod, geminiAction_.get());
-statusArea.addAction(StatusGroup::InputMethod, chromeX11Action_.get()); 
+    statusArea.addAction(StatusGroup::InputMethod, chromeX11Action_.get());
 }
 
 void vmkEngine::keyEvent(const InputMethodEntry &entry, KeyEvent &keyEvent) {
@@ -1104,12 +1205,56 @@ void vmkEngine::updateGeminiAction(InputContext *ic) {
     }
 }
 void vmkEngine::updateChromeX11Action(InputContext *ic) {
-    // Khớp dấu tích với giá trị trong config
-  chromeX11Action_->setChecked(*config_.chromex11);
-chromeX11Action_->setShortText(*config_.chromex11 ? _("ChromeX11: Bật") : _("ChromeX11: Tắt"));
+    chromeX11Action_->setChecked(*config_.chromex11);
+    chromeX11Action_->setShortText(*config_.chromex11 ? _("ChromeX11: Bật")
+                                                      : _("ChromeX11: Tắt"));
     if (ic) {
         chromeX11Action_->update(ic);
     }
+}
+
+void vmkEngine::updateAutoNonVnAction(InputContext *ic) {
+    if (!autoNonVnAction_)
+        return;
+    autoNonVnAction_->setChecked(*config_.autoNonVnRestore);
+    autoNonVnAction_->setShortText(*config_.autoNonVnRestore
+                                       ? _("Giữ từ EN: Bật")
+                                       : _("Giữ từ EN: Tắt"));
+    if (ic)
+        autoNonVnAction_->update(ic);
+}
+
+void vmkEngine::updateSpellCheckAction(InputContext *ic) {
+    if (!spellCheckAction_)
+        return;
+    spellCheckAction_->setChecked(*config_.spellCheckWithDicts);
+    spellCheckAction_->setShortText(*config_.spellCheckWithDicts
+                                        ? _("Từ điển TV: Bật")
+                                        : _("Từ điển TV: Tắt"));
+    if (ic)
+        spellCheckAction_->update(ic);
+}
+
+void vmkEngine::updateFreeMarkingAction(InputContext *ic) {
+    if (!freeMarkingAction_)
+        return;
+    freeMarkingAction_->setChecked(*config_.freeMarking);
+    freeMarkingAction_->setShortText(*config_.freeMarking
+                                         ? _("Free marking: Bật")
+                                         : _("Free marking: Tắt"));
+    if (ic)
+        freeMarkingAction_->update(ic);
+}
+
+void vmkEngine::updateEnglishWordListAction(InputContext *ic) {
+    if (!englishWordListAction_)
+        return;
+    englishWordListAction_->setChecked(*config_.englishWordList);
+    englishWordListAction_->setShortText(*config_.englishWordList
+                                             ? _("EN whitelist: Bật")
+                                             : _("EN whitelist: Tắt"));
+    if (ic)
+        englishWordListAction_->update(ic);
 }
 } 
 

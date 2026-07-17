@@ -1,22 +1,29 @@
-# Gõ lẫn tiếng Anh khi dùng VMK
+# Chức năng gõ lẫn tiếng Anh / tiếng Việt
 
-Một số bạn (nhất là dev) hay gặp:
+Không phải “hack ẩn” — đây là **option chính thức**, bật/tắt được 3 chỗ:
 
-- gõ `clear` bị dính dấu vì phím `r` / free-marking
-- gõ `w` đứng một mình thành `ư` nếu đang để **Telex W**
+1. **Menu tray Fcitx5** (khi đang dùng VMK)  
+2. **`~/sconfig`** (app cấu hình)  
+3. **`fcitx5-configtool`** → VMK → các checkbox  
+4. File: `~/.config/fcitx5/conf/vmk.conf`
 
-## Mặc định đề xuất (bản patch này)
+## Các option
 
-| Tuỳ chọn | Mặc định | Ý nghĩa |
-|----------|----------|---------|
-| AutoNonVnRestore | bật | Từ không hợp lệ TV → trả lại keystroke gốc |
-| SpellCheckWithDicts | bật | Đối chiếu từ điển bamboo |
-| FreeMarking | bật | Vẫn gõ dấu thoải mái như UniKey |
-| Input method | **Telex** | `w` chỉ biến `u/o/a` → `ư/ơ/ă`, **không** ép `w` → `ư` |
+| Key trong conf | Tên trên UI | Mặc định | Việc làm |
+|----------------|-------------|----------|----------|
+| `AutoNonVnRestore` | Giữ từ tiếng Anh | Bật | Từ không phải TV → giữ keystroke (`clear`, …) |
+| `SpellCheckWithDicts` | Kiểm tra từ điển TV | Bật | Đối chiếu dict bamboo |
+| `FreeMarking` | Gõ dấu tự do | Bật | Free marking kiểu UniKey |
+| `EnglishWordList` | Whitelist từ EN | Bật | Ưu tiên không dấu các từ trong list |
+| `InputMethod` | Kiểu gõ | **Telex** | `Telex W` mới ép `w` đứng một mình → `ư` |
 
-Nếu thích kiểu UniKey `w` → `ư` mọi lúc, chọn lại **Telex W** trong menu kiểu gõ.
+## Whitelist từ EN
 
-## Ghi chú
+- Builtin ~700 từ (code/chat phổ biến)
+- Thêm tay: `~/.config/fcitx5/vmk-english-words.txt` (1 từ / dòng)
+- Chỉ có hiệu lực khi **EnglishWordList = True**
 
-Phần engine bamboo (wordlist tiếng Anh mở rộng) nằm ở `fcitx5-bamboo` / `bamboo-core`.
-Patch này chỉ chỉnh **mặc định + config phía VMK** — đủ để phần lớn case coding/chat đỡ “bể” chữ Anh.
+## Gợi ý dùng
+
+- Code / chat EN-VN lẫn → bật cả 3: Giữ từ EN + Từ điển + Whitelist, kiểu **Telex**
+- Muốn `w` → `ư` như UniKey cũ → chọn **Telex W**

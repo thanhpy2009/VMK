@@ -130,43 +130,46 @@ public:
     void refreshOption();
     
     void saveConfig() { safeSaveAsIni(config_, "conf/vmk.conf"); } 
-  void updateModeAction(InputContext *ic);
-    void updateSpellAction(InputContext *ic);
-    void updateMacroAction(InputContext *ic);
+    void updateModeAction(InputContext *ic);
     void updateInputMethodAction(InputContext *ic);
     void updateCharsetAction(InputContext *ic);
-void updateGeminiAction(InputContext *ic); // <--- THÊM DÒNG NÀY VÀO DÒNG 138
-void updateChromeX11Action(InputContext *ic); // <--- THÊM DÒNG NÀY
+    void updateGeminiAction(InputContext *ic);
+    void updateChromeX11Action(InputContext *ic);
+    void updateAutoNonVnAction(InputContext *ic);
+    void updateSpellCheckAction(InputContext *ic);
+    void updateFreeMarkingAction(InputContext *ic);
+    void updateEnglishWordListAction(InputContext *ic);
     void populateConfig();
 
 private:
-bool freeMarkingValue_ = true;
     Instance *instance_;
-    vmkConfig config_; 
-    vmkCustomKeymap customKeymap_; 
+    vmkConfig config_;
+    vmkCustomKeymap customKeymap_;
 
-    // Đã sửa: BambooMacroTable -> vmkMacroTable
-    std::unordered_map<std::string, vmkMacroTable> macroTables_; 
+    std::unordered_map<std::string, vmkMacroTable> macroTables_;
     std::unordered_map<std::string, CGoObject> macroTableObject_;
 
-    FactoryFor<VMKState> factory_; 
+    FactoryFor<VMKState> factory_;
     std::vector<std::string> imNames_;
 
     std::unique_ptr<SimpleAction> inputMethodAction_;
     std::vector<std::unique_ptr<SimpleAction>> inputMethodSubAction_;
     std::unique_ptr<Menu> inputMethodMenu_;
-std::unique_ptr<fcitx::SimpleAction> modeAction_;
+    std::unique_ptr<fcitx::SimpleAction> modeAction_;
     std::unique_ptr<fcitx::Menu> modeMenu_;
     std::vector<std::unique_ptr<fcitx::SimpleAction>> modeSubAction_;
     std::unique_ptr<SimpleAction> charsetAction_;
     std::vector<std::unique_ptr<SimpleAction>> charsetSubAction_;
     std::unique_ptr<Menu> charsetMenu_;
-    
+
+    // Toggle trên menu tray / status area (giống Gemini)
+    std::unique_ptr<SimpleAction> autoNonVnAction_;
     std::unique_ptr<SimpleAction> spellCheckAction_;
-    std::unique_ptr<SimpleAction> macroAction_;
+    std::unique_ptr<SimpleAction> freeMarkingAction_;
+    std::unique_ptr<SimpleAction> englishWordListAction_;
     std::unique_ptr<SimpleAction> geminiAction_;
+    std::unique_ptr<SimpleAction> chromeX11Action_;
     std::vector<ScopedConnection> connections_;
-std::unique_ptr<SimpleAction> chromeX11Action_; 
     CGoObject dictionary_;
 };
 

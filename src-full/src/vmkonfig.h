@@ -4,14 +4,14 @@
  * SPDX-License-Identifier: GPL-3.0
  *
  */
-#ifndef _FCITX5_vmk_vmkCONFIG_H_ // ĐỔI TÊN HEADER GUARD
+#ifndef _FCITX5_vmk_vmkCONFIG_H_
 #define _FCITX5_vmk_vmkCONFIG_H_
 
 #include <fcitx-config/configuration.h>
 #include <fcitx-config/option.h>
 #include <fcitx-utils/i18n.h>
 #include <fcitx-utils/stringutils.h>
-#include <algorithm> // Thêm thư viện này để đảm bảo std::find hoạt động
+#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -40,7 +40,8 @@ protected:
 
 struct InputMethodAnnotation : public StringListAnnotation {};
 struct ModeListAnnotation : public StringListAnnotation {
-    ModeListAnnotation() { list_ = {"vmk1","vmk2","vmk1hc","vmkpre"}; }};
+    ModeListAnnotation() { list_ = {"vmk1", "vmk2", "vmk1hc", "vmkpre"}; }
+};
 
 struct InputMethodConstrain {
     using Type = std::string;
@@ -48,7 +49,6 @@ struct InputMethodConstrain {
     InputMethodConstrain(const InputMethodOption *option) : option_(option) {}
 
     bool check(const std::string &name) const {
-        // Avoid check during initialization
         const auto &list = option_->annotation().list();
         if (list.empty()) {
             return true;
@@ -61,7 +61,6 @@ protected:
     const InputMethodOption *option_;
 };
 
-// ĐỔI TÊN CONFIGURATIONS
 FCITX_CONFIGURATION(vmkKeymap,
                     Option<std::string> key{this, "Key", _("Key"), ""};
                     Option<std::string> value{this, "Value", _("Value"), ""};);
@@ -73,8 +72,8 @@ FCITX_CONFIGURATION(
                "Macro",
                _("Macro"),
                {},
-               {}, // BẮT BUỘC: Thêm Constrain mặc định
-               {}, // BẮT BUỘC: Thêm Annotation mặc định
+               {},
+               {},
                ListDisplayOptionAnnotation("Key")};);
 
 FCITX_CONFIGURATION(
@@ -84,77 +83,61 @@ FCITX_CONFIGURATION(
                      "CustomKeymap",
                      _("Custom Keymap"),
                      {},
-                     {}, // BẮT BUỘC: Thêm Constrain mặc định
-                     {}, // BẮT BUỘC: Thêm Annotation mặc định
+                     {},
+                     {},
                      ListDisplayOptionAnnotation("Key")};);
 
-// ĐỔI TÊN CONFIGURATION CHÍNH
-
 FCITX_CONFIGURATION(
-    vmkConfig, 
+    vmkConfig,
 
-OptionWithAnnotation<std::string, ModeListAnnotation> mode{
-        this,
-        "Mode",
-        _("Chế độ"),
-        "vmk1",
-        {},
-        {},
-        ModeListAnnotation()
-    };
-    //KeyListOption restoreKeyStroke{this,
-                                   //"RestoreKeyStroke",
-                                 //  _("Restore Key Stroke"),
-                                 //  {},
-                                //   KeyListConstrain()};
+    OptionWithAnnotation<std::string, ModeListAnnotation> mode{
+        this, "Mode", _("Chế độ"), "vmk1", {}, {}, ModeListAnnotation()};
+
     Option<std::string, InputMethodConstrain, DefaultMarshaller<std::string>,
            InputMethodAnnotation>
-        inputMethod{this, "InputMethod", _("Input Method"), "Telex",
+        inputMethod{this,
+                    "InputMethod",
+                    _("Kiểu gõ"),
+                    "Telex",
                     InputMethodConstrain(&inputMethod),
-                    // BẮT BUỘC SỬA: Thêm đối số DefaultMarshaller (Marshaller mặc định)
-                    {}, 
-                    // BẮT BUỘC: Thêm đối số Annotation bị thiếu
-                    InputMethodAnnotation()}; 
-OptionWithAnnotation<std::string, StringListAnnotation> outputCharset{
-        this, "OutputCharset", _("Output Charset"), "Unicode",
-        // BẮT BUỘC SỬA: OptionWithAnnotation cần đủ 7 đối số trong trường hợp này:
-        // 5. Constrain (Mặc định: NoConstrain)
-        {}, 
-        // 6. Marshaller (Mặc định: DefaultMarshaller)
-        {}, 
-        // 7. Annotation
-        StringListAnnotation()}; 
- //   Option<bool> spellCheck{this, "SpellCheck", _("Enable spell check"), true};
-   // Option<bool> macro{this, "Macro", _("Enable Macro"), true};
-  //  Option<bool> capitalizeMacro{this, "CapitalizeMacro", _("Capitalize Macro"),
-                        //         true};
-    //Option<bool> autoNonVnRestore{this, "AutoNonVnRestore",
-                                 // _("Auto restore keys with invalid words"),
-                                 // true};
-  // Option<bool> modernStyle{this, "ModernStyle",
-                      //   _("Use oà, _uý (instead of òa, úy)"), false};
-  //  Option<bool> freeMarking{this, "FreeMarking",
-                            // _("Allow type with more freedom"), true};
-    // Option<bool> displayUnderline{this, "DisplayUnderline",
-                              //    _("Underline the preedit text"), true};
-   // SubConfigOption custumKeymap{this, "CustomKeymap", _("Custom Keymap"),
-                                 // ĐỔI TÊN PATH
-                               //  "fcitx://config/addon/vmk/custom_keymap"};
-    
-// When on, invalid / non-Vietnamese words fall back to raw keystrokes
-    // (helps a lot when switching between Vietnamese and English in one sentence).
-    Option<bool> autoNonVnRestore{this, "AutoNonVnRestore",
-                                  _("Auto restore non-Vietnamese words"), true};
-    // Cross-check with bamboo dictionary before accepting a Vietnamese word.
-    Option<bool> spellCheckWithDicts{this, "SpellCheckWithDicts",
-                                     _("Spell check with dictionary"), true};
-    // Free tone placement (UniKey-style). Keep on for Vietnamese comfort.
-    Option<bool> freeMarking{this, "FreeMarking",
-                             _("Allow freer tone/mark placement"), true};
+                    {},
+                    InputMethodAnnotation()};
 
-    Option<bool> gemini{this, "Gemini", _("Gemini-fix"), false};
-    Option<bool> chromex11{this, "ChromeX11", _("Chrome X11 Fix"), false};
-                           );
+    OptionWithAnnotation<std::string, StringListAnnotation> outputCharset{
+        this, "OutputCharset", _("Bảng mã"), "Unicode", {}, {},
+        StringListAnnotation()};
+
+    // ---- Gõ lẫn tiếng Anh / tiếng Việt (hiện trên fcitx5-configtool & sconfig) ----
+
+    /// Khi bật: từ không phải tiếng Việt (vd. clear, with, class) được giữ nguyên
+    /// keystroke, không bị Telex/VNI “xử” thành chữ có dấu.
+    Option<bool> autoNonVnRestore{
+        this, "AutoNonVnRestore",
+        _("Giữ từ tiếng Anh (auto restore)"), true};
+
+    /// Khi bật: đối chiếu từ điển bamboo trước khi chốt từ tiếng Việt.
+    /// Kết hợp với “Giữ từ tiếng Anh” để giảm dính dấu khi code/chat EN.
+    Option<bool> spellCheckWithDicts{
+        this, "SpellCheckWithDicts",
+        _("Kiểm tra từ điển tiếng Việt"), true};
+
+    /// Free-marking kiểu UniKey: đặt dấu linh hoạt hơn trong từ tiếng Việt.
+    Option<bool> freeMarking{
+        this, "FreeMarking",
+        _("Gõ dấu tự do (free marking)"), true};
+
+    /// Dùng danh sách từ tiếng Anh (builtin + ~/.config/fcitx5/vmk-english-words.txt)
+    /// để ưu tiên không bỏ dấu các từ phổ biến (clear, window, ...).
+    Option<bool> englishWordList{
+        this, "EnglishWordList",
+        _("Danh sách từ tiếng Anh (whitelist)"), true};
+
+    // ---- Fix app ----
+    Option<bool> gemini{this, "Gemini", _("Sửa Gemini / Chrome RichText"),
+                        false};
+    Option<bool> chromex11{this, "ChromeX11", _("Sửa Chrome trên X11"), false};
+);
+
 } // namespace fcitx
 
 #endif
