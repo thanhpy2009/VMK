@@ -340,6 +340,18 @@ public:
         return false;
     }
 
+    void finishDeletingAndFlush() {
+        is_deleting_.store(0);
+        current_thread_id_.fetch_add(1);
+        usleep(10000);
+        if (!pending_commit_string_.empty()) {
+            ic_->commitString(pending_commit_string_);
+            pending_commit_string_ = "";
+        }
+        expected_backspaces_ = 0;
+        current_backspace_count_ = -1;
+    }
+
     bool handleUInputKeyPress(fcitx::KeyEvent &event, fcitx::KeySym currentSym) {
         if (!is_deleting_.load()) return false;
         if (isBackspace(currentSym)) {
@@ -347,19 +359,29 @@ public:
             if (current_backspace_count_ < expected_backspaces_) {
                 return false;
             } else {
-                is_deleting_.store(0); 
-                current_thread_id_.fetch_add(1);
-                usleep(20000);
-                ic_->commitString(pending_commit_string_);
-                expected_backspaces_ = 0;
-                current_backspace_count_ = -1;
-                pending_commit_string_ = "";
-
+                finishDeletingAndFlush();
                 event.filterAndAccept();
                 return true;
             }
         }
         return false;
+    }
+
+    // Gõ nhanh lúc đang BS: cập nhật engine/preedit (không liên quan hold)
+    void absorbKeyWhileDeleting(fcitx::KeySym currentSym) {
+        if (!(currentSym >= 32 && currentSym <= 126))
+            return;
+        std::string history = readBufferFromFile();
+        history += static_cast<char>(currentSym);
+        writeBufferToFile(history);
+        replayBufferToEngine(history);
+        UniqueCPtr<char> preeditC(EnginePullPreedit(vmkEngine_.handle()));
+        std::string preeditStr =
+            (preeditC && preeditC.get()[0]) ? preeditC.get() : "";
+        if (preeditStr.empty())
+            return;
+        pending_commit_string_ = preeditStr;
+        oldPreBuffer_ = preeditStr;
     }
 
     void deleteBufferFile() { std::remove("/tmp/vmk_buffer"); }
@@ -559,8 +581,18 @@ bool isChromiumX11(fcitx::InputContext *ic, fcitx::Instance *instance) {
                     keyEvent.forward(); return;
                 }
             } else {
-                if (isBackspace(currentSym) && is_deleting_) { if (handleUInputKeyPress(keyEvent, currentSym)) return; return; }
-                keyEvent.filterAndAccept(); return;
+                // Đang xóa bằng uinput: vẫn nhận phím gõ nhanh vào engine,
+                // không nuốt phím (tránh "nos" thay vì "nó").
+                if (isBackspace(currentSym) && is_deleting_) {
+                    if (handleUInputKeyPress(keyEvent, currentSym))
+                        return;
+                    return;
+                }
+                if (currentSym >= 32 && currentSym <= 126) {
+                    absorbKeyWhileDeleting(currentSym);
+                }
+                keyEvent.filterAndAccept();
+                return;
             }
             if (!is_deleting_.load()) {
                 if (uinput_fd_ < 0) setup_uinput();
@@ -609,7 +641,7 @@ bool isChromiumX11(fcitx::InputContext *ic, fcitx::Instance *instance) {
                             expected_backspaces_ = 0;
                             current_backspace_count_ = -1;
                             pending_commit_string_ = "";   
-                            is_deleting_.store(0);           
+                            is_deleting_.store(0);
                             return;
                         }
                         if (is_deleting_.load() == 1) {
@@ -632,17 +664,15 @@ bool isChromiumX11(fcitx::InputContext *ic, fcitx::Instance *instance) {
                                 std::this_thread::sleep_for(std::chrono::milliseconds(5));
 
                                 auto now = std::chrono::steady_clock::now();
-                                if (std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count() > 200) {
+                                // Gõ nhanh: chờ BS xong lâu hơn 200ms (tránh chốt "nos")
+                                if (std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count() > 450) {
                                     break;
                                 }
                             }
 
-                            if (current_thread_id_.load() == my_id) {
-                                if (!pending_commit_string_.empty()) {
-                                    ic_->commitString(pending_commit_string_);
-                                    pending_commit_string_ = "";
-                                }
-                                is_deleting_.store(0);
+                            if (current_thread_id_.load() == my_id &&
+                                is_deleting_.load()) {
+                                finishDeletingAndFlush();
                             }
                         }).detach();
                         
@@ -664,8 +694,16 @@ bool isChromiumX11(fcitx::InputContext *ic, fcitx::Instance *instance) {
                     keyEvent.forward(); return;
                 }
             } else {
-                if (isBackspace(currentSym) && is_deleting_) { if (handleUInputKeyPress(keyEvent, currentSym)) return; return; }
-                keyEvent.filterAndAccept(); return;
+                if (isBackspace(currentSym) && is_deleting_) {
+                    if (handleUInputKeyPress(keyEvent, currentSym))
+                        return;
+                    return;
+                }
+                if (currentSym >= 32 && currentSym <= 126) {
+                    absorbKeyWhileDeleting(currentSym);
+                }
+                keyEvent.filterAndAccept();
+                return;
             }
             if (!is_deleting_.load()) {
                 if (uinput_fd_ < 0) setup_uinput();
@@ -708,7 +746,7 @@ bool isChromiumX11(fcitx::InputContext *ic, fcitx::Instance *instance) {
                             expected_backspaces_ = 0;
                             current_backspace_count_ = -1;
                             pending_commit_string_ = "";   
-                            is_deleting_.store(0);           
+                            is_deleting_.store(0);
                             return;
                         }
                         if (is_deleting_.load() == 1) {
@@ -731,17 +769,14 @@ bool isChromiumX11(fcitx::InputContext *ic, fcitx::Instance *instance) {
                                 std::this_thread::sleep_for(std::chrono::milliseconds(5));
 
                                 auto now = std::chrono::steady_clock::now();
-                                if (std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count() > 200) {
+                                if (std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count() > 450) {
                                     break;
                                 }
                             }
 
-                            if (current_thread_id_.load() == my_id) {
-                                if (!pending_commit_string_.empty()) {
-                                    ic_->commitString(pending_commit_string_);
-                                    pending_commit_string_ = "";
-                                }
-                                is_deleting_.store(0);
+                            if (current_thread_id_.load() == my_id &&
+                                is_deleting_.load()) {
+                                finishDeletingAndFlush();
                             }
                         }).detach();
                         
@@ -982,7 +1017,7 @@ uiManager.registerAction("vmk-chromex11", chromeX11Action_.get());
     // --- Chức năng gõ EN/VN: bật/tắt trên menu tray, lưu conf/vmk.conf ---
     autoNonVnAction_ = std::make_unique<SimpleAction>();
     autoNonVnAction_->setLongText(
-        _("Giữ từ tiếng Anh — clear/with không bị dính dấu"));
+        _("Hoàn tác từ vô nghĩa — no/cleả → trả keystroke; nói/hoa vẫn OK"));
     autoNonVnAction_->setIcon("insert-text");
     autoNonVnAction_->setCheckable(true);
     connections_.emplace_back(autoNonVnAction_->connect<SimpleAction::Activated>(
@@ -999,7 +1034,7 @@ uiManager.registerAction("vmk-chromex11", chromeX11Action_.get());
 
     spellCheckAction_ = std::make_unique<SimpleAction>();
     spellCheckAction_->setLongText(
-        _("Kiểm tra từ điển tiếng Việt (spell check)"));
+        _("Dùng từ điển khi hoàn tác (từ không phổ biến → hoàn tác)"));
     spellCheckAction_->setIcon("tools-check-spelling");
     spellCheckAction_->setCheckable(true);
     connections_.emplace_back(
@@ -1036,7 +1071,7 @@ uiManager.registerAction("vmk-chromex11", chromeX11Action_.get());
 
     englishWordListAction_ = std::make_unique<SimpleAction>();
     englishWordListAction_->setLongText(
-        _("Whitelist từ tiếng Anh (~/.config/fcitx5/vmk-english-words.txt)"));
+        _("Whitelist EN thêm — chỉ khi chốt từ, mặc định tắt"));
     englishWordListAction_->setIcon("accessories-dictionary");
     englishWordListAction_->setCheckable(true);
     connections_.emplace_back(
@@ -1218,8 +1253,8 @@ void vmkEngine::updateAutoNonVnAction(InputContext *ic) {
         return;
     autoNonVnAction_->setChecked(*config_.autoNonVnRestore);
     autoNonVnAction_->setShortText(*config_.autoNonVnRestore
-                                       ? _("Giữ từ EN: Bật")
-                                       : _("Giữ từ EN: Tắt"));
+                                       ? _("Hoàn tác vô nghĩa: Bật")
+                                       : _("Hoàn tác vô nghĩa: Tắt"));
     if (ic)
         autoNonVnAction_->update(ic);
 }
@@ -1229,8 +1264,8 @@ void vmkEngine::updateSpellCheckAction(InputContext *ic) {
         return;
     spellCheckAction_->setChecked(*config_.spellCheckWithDicts);
     spellCheckAction_->setShortText(*config_.spellCheckWithDicts
-                                        ? _("Từ điển TV: Bật")
-                                        : _("Từ điển TV: Tắt"));
+                                        ? _("Từ điển hoàn tác: Bật")
+                                        : _("Từ điển hoàn tác: Tắt"));
     if (ic)
         spellCheckAction_->update(ic);
 }

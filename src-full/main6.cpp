@@ -21,7 +21,7 @@ struct VmkConfigValues {
     bool autoNonVnRestore = true;
     bool spellCheckWithDicts = true;
     bool freeMarking = true;
-    bool englishWordList = true;
+    bool englishWordList = false;
     bool gemini = false;
     bool chromex11 = false;
 };
@@ -110,14 +110,14 @@ void save(VmkConfigValues c) {
     f << "Mode=" << c.mode << "\n";
     f << "InputMethod=" << c.method << "\n";
     f << "OutputCharset=" << c.charset << "\n";
-    f << "\n# --- Gõ lẫn tiếng Anh / tiếng Việt ---\n";
-    f << "# clear/with/class không bị Telex dính dấu\n";
+    f << "\n# --- Hoàn tác từ vô nghĩa (UniKey-style) ---\n";
+    f << "# Từ không hợp lệ / không có dict → trả keystroke\n";
     f << "AutoNonVnRestore=" << yn(c.autoNonVnRestore) << "\n";
-    f << "# Đối chiếu từ điển bamboo\n";
+    f << "# Tra từ điển bamboo khi chốt từ\n";
     f << "SpellCheckWithDicts=" << yn(c.spellCheckWithDicts) << "\n";
-    f << "# Free marking kiểu UniKey\n";
+    f << "# Free marking\n";
     f << "FreeMarking=" << yn(c.freeMarking) << "\n";
-    f << "# Whitelist EN (builtin + ~/.config/fcitx5/vmk-english-words.txt)\n";
+    f << "# Whitelist EN phụ (mặc định tắt)\n";
     f << "EnglishWordList=" << yn(c.englishWordList) << "\n";
     f << "\n# --- Fix app ---\n";
     f << "Gemini=" << yn(c.gemini) << "\n";
@@ -241,13 +241,13 @@ int main(int argc, char **argv) {
         a.c4->add(x);
 
     a.chkEn = new Fl_Check_Button(0, 0, 0, 0,
-                                  " Giữ từ tiếng Anh (clear/with không dính dấu)");
+                                  " Hoàn tác từ vô nghĩa (no/cleả → trả phím; nói vẫn OK)");
     a.chkDict =
-        new Fl_Check_Button(0, 0, 0, 0, " Kiểm tra từ điển tiếng Việt");
+        new Fl_Check_Button(0, 0, 0, 0, " Dùng từ điển khi hoàn tác");
     a.chkFree =
         new Fl_Check_Button(0, 0, 0, 0, " Gõ dấu tự do (free marking)");
     a.chkList = new Fl_Check_Button(
-        0, 0, 0, 0, " Whitelist từ EN (vmk-english-words.txt)");
+        0, 0, 0, 0, " Whitelist EN thêm (tuỳ chọn, mặc định tắt)");
     a.chkGemini = new Fl_Check_Button(0, 0, 0, 0, " Gemini / Chrome RichText fix");
     a.chkX11 = new Fl_Check_Button(0, 0, 0, 0, " Chrome X11 fix");
 

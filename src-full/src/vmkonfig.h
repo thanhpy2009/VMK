@@ -107,30 +107,31 @@ FCITX_CONFIGURATION(
         this, "OutputCharset", _("Bảng mã"), "Unicode", {}, {},
         StringListAnnotation()};
 
-    // ---- Gõ lẫn tiếng Anh / tiếng Việt (hiện trên fcitx5-configtool & sconfig) ----
+    // ---- Hoàn tác từ vô nghĩa (kiểu UniKey) — hiện configtool / sconfig / menu ----
 
-    /// Khi bật: từ không phải tiếng Việt (vd. clear, with, class) được giữ nguyên
-    /// keystroke, không bị Telex/VNI “xử” thành chữ có dấu.
+    /// Bật: từ không hợp lệ tiếng Việt (vd. "no", "cleả" từ clear) → trả lại
+    /// đúng phím đã gõ. Từ CÓ nghĩa ("nó", "nói", "hoa") vẫn bỏ dấu bình thường.
     Option<bool> autoNonVnRestore{
         this, "AutoNonVnRestore",
-        _("Giữ từ tiếng Anh (auto restore)"), true};
+        _("Hoàn tác từ vô nghĩa"), true};
 
-    /// Khi bật: đối chiếu từ điển bamboo trước khi chốt từ tiếng Việt.
-    /// Kết hợp với “Giữ từ tiếng Anh” để giảm dính dấu khi code/chat EN.
+    /// Khi chốt từ: tra từ điển bamboo. Không có trong dict → coi như vô nghĩa → hoàn tác.
+    /// "nos" không phổ biến → hoàn tác; từ có trong dict → giữ.
     Option<bool> spellCheckWithDicts{
         this, "SpellCheckWithDicts",
-        _("Kiểm tra từ điển tiếng Việt"), true};
+        _("Dùng từ điển khi hoàn tác"), true};
 
-    /// Free-marking kiểu UniKey: đặt dấu linh hoạt hơn trong từ tiếng Việt.
+    /// Free-marking kiểu UniKey: đặt dấu linh hoạt trong từ tiếng Việt.
     Option<bool> freeMarking{
         this, "FreeMarking",
         _("Gõ dấu tự do (free marking)"), true};
 
-    /// Dùng danh sách từ tiếng Anh (builtin + ~/.config/fcitx5/vmk-english-words.txt)
-    /// để ưu tiên không bỏ dấu các từ phổ biến (clear, window, ...).
+    /// (Tuỳ chọn, mặc định TẮT) Whitelist EN bổ sung khi chốt từ.
+    /// Không dùng giữa chừng — tránh vỡ gõ dở "no"/"me". File:
+    /// ~/.config/fcitx5/vmk-english-words.txt
     Option<bool> englishWordList{
         this, "EnglishWordList",
-        _("Danh sách từ tiếng Anh (whitelist)"), true};
+        _("Whitelist EN thêm (tuỳ chọn)"), false};
 
     // ---- Fix app ----
     Option<bool> gemini{this, "Gemini", _("Sửa Gemini / Chrome RichText"),
