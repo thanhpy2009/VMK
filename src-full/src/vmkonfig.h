@@ -141,8 +141,19 @@ OptionWithAnnotation<std::string, StringListAnnotation> outputCharset{
                                  // ĐỔI TÊN PATH
                                //  "fcitx://config/addon/vmk/custom_keymap"};
     
-Option<bool> gemini{this, "Gemini", _("Gemini-fix"), false};
-Option<bool> chromex11{this, "ChromeX11", _("Chrome X11 Fix"), false};
+// When on, invalid / non-Vietnamese words fall back to raw keystrokes
+    // (helps a lot when switching between Vietnamese and English in one sentence).
+    Option<bool> autoNonVnRestore{this, "AutoNonVnRestore",
+                                  _("Auto restore non-Vietnamese words"), true};
+    // Cross-check with bamboo dictionary before accepting a Vietnamese word.
+    Option<bool> spellCheckWithDicts{this, "SpellCheckWithDicts",
+                                     _("Spell check with dictionary"), true};
+    // Free tone placement (UniKey-style). Keep on for Vietnamese comfort.
+    Option<bool> freeMarking{this, "FreeMarking",
+                             _("Allow freer tone/mark placement"), true};
+
+    Option<bool> gemini{this, "Gemini", _("Gemini-fix"), false};
+    Option<bool> chromex11{this, "ChromeX11", _("Chrome X11 Fix"), false};
                            );
 } // namespace fcitx
 

@@ -234,15 +234,19 @@ public:
 
     void setOption() {
         if (!vmkEngine_) return;
+        // Defaults tuned for mixed VN/EN typing (coding, chat, browser):
+        // restore keystrokes when the current word is not valid Vietnamese,
+        // so English words like "clear" / "class" are not mangled by tone keys.
+        // Prefer Telex (not Telex W) so a lone "w" stays "w" instead of "ư".
         FcitxBambooEngineOption option = {
-            .autoNonVnRestore = false,
+            .autoNonVnRestore = *engine_->config().autoNonVnRestore,
             .ddFreeStyle = true,
             .macroEnabled = false,
             .autoCapitalizeMacro = false,
-            .spellCheckWithDicts = false,
+            .spellCheckWithDicts = *engine_->config().spellCheckWithDicts,
             .outputCharset = engine_->config().outputCharset->data(),
             .modernStyle = false,
-            .freeMarking = true,
+            .freeMarking = *engine_->config().freeMarking,
         };
         EngineSetOption(vmkEngine_.handle(), &option);
     }

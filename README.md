@@ -75,6 +75,18 @@ note: vmk ko trực tiếp fix khi gõ thanh địa chỉ firefox tuy nhiên có
 ### 🌐 Sửa lỗi cấp quyền bảo mật 666 file sevrer
 ### 📥 Cách cập nhật lên 0.9.31 Alpha
 link tải bên dưới. Cài mà không cần gỡ bản cũ. Nó tự gỡ và cài bản mới vào
+### Gõ lẫn tiếng Anh (coding / chat)
+
+Mấy bạn dev hay than:
+
+- gõ `clear`, `class` bị Telex “xử” thành chữ có dấu
+- để **Telex W** thì `w` một mình thành `ư` (khó gõ `with`, `window`, …)
+
+Bản gần đây có thể bật **Auto restore non-Vietnamese words** + **Spell check with dictionary** (mặc định nên bật nếu hay gõ EN/VN lẫn).  
+Nên dùng kiểu **Telex** thay vì **Telex W** nếu không muốn `w` → `ư` khi đứng một mình.
+
+Chi tiết: [src-full/ENGLISH_TYPING.md](src-full/ENGLISH_TYPING.md)
+
 ### Thông Tin Chi Tiết Về VMK1HC (Hard Core)
 Chế độ này được thiết kế đặc biệt cho các môi trường làm việc chuyên sâu:
 * **Cơ chế:** Lưu trạng thái gõ vào thư mục `/tmp`. Đối với các distro sử dụng **systemd**, dữ liệu này sẽ nằm trực tiếp trên RAM.
