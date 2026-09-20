@@ -75,6 +75,19 @@ note: vmk ko trực tiếp fix khi gõ thanh địa chỉ firefox tuy nhiên có
 ### 🌐 Sửa lỗi cấp quyền bảo mật 666 file sevrer
 ### 📥 Cách cập nhật lên 0.9.31 Alpha
 link tải bên dưới. Cài mà không cần gỡ bản cũ. Nó tự gỡ và cài bản mới vào
+### Hoàn tác từ vô nghĩa
+
+Giống UniKey: từ không hợp lệ (`no`, `cleả`…) trả lại keystroke; từ có nghĩa (`nói`, `hoa`) vẫn bỏ dấu bình thường.
+
+Bật trong config / `sconfig` / menu tray:
+
+- **Hoàn tác từ vô nghĩa** (`AutoNonVnRestore`)
+- **Dùng từ điển khi hoàn tác** (`SpellCheckWithDicts`)
+
+Kiểu gõ nên dùng **Telex** (không phải Telex W) nếu không muốn `w` đứng một mình thành `ư`.
+
+Chi tiết: [src-full/HOAN_TAC_TU_VO_NGHIA.md](src-full/HOAN_TAC_TU_VO_NGHIA.md)
+
 ### Thông Tin Chi Tiết Về VMK1HC (Hard Core)
 Chế độ này được thiết kế đặc biệt cho các môi trường làm việc chuyên sâu:
 * **Cơ chế:** Lưu trạng thái gõ vào thư mục `/tmp`. Đối với các distro sử dụng **systemd**, dữ liệu này sẽ nằm trực tiếp trên RAM.

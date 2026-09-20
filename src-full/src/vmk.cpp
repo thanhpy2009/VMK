@@ -234,18 +234,23 @@ public:
 
     void setOption() {
         if (!vmkEngine_) return;
+        // Đọc từ config (fcitx5-configtool / sconfig / menu tray) — không hard-code.
         FcitxBambooEngineOption option = {
-            .autoNonVnRestore = false,
+            .autoNonVnRestore = *engine_->config().autoNonVnRestore,
             .ddFreeStyle = true,
             .macroEnabled = false,
             .autoCapitalizeMacro = false,
-            .spellCheckWithDicts = false,
+            .spellCheckWithDicts = *engine_->config().spellCheckWithDicts,
             .outputCharset = engine_->config().outputCharset->data(),
             .modernStyle = false,
-            .freeMarking = true,
+            .freeMarking = *engine_->config().freeMarking,
+            .englishWordList = *engine_->config().englishWordList,
         };
         EngineSetOption(vmkEngine_.handle(), &option);
+        // English whitelist on/off — engine bamboo đọc flag qua refresh (nếu có)
+        // File từ: ~/.config/fcitx5/vmk-english-words.txt (kèm builtin)
     }
+
 
     bool connect_uinput_server() {
         if (uinput_client_fd_ >= 0) return true;
@@ -335,6 +340,18 @@ public:
         return false;
     }
 
+    void finishDeletingAndFlush() {
+        is_deleting_.store(0);
+        current_thread_id_.fetch_add(1);
+        usleep(10000);
+        if (!pending_commit_string_.empty()) {
+            ic_->commitString(pending_commit_string_);
+            pending_commit_string_ = "";
+        }
+        expected_backspaces_ = 0;
+        current_backspace_count_ = -1;
+    }
+
     bool handleUInputKeyPress(fcitx::KeyEvent &event, fcitx::KeySym currentSym) {
         if (!is_deleting_.load()) return false;
         if (isBackspace(currentSym)) {
@@ -342,19 +359,29 @@ public:
             if (current_backspace_count_ < expected_backspaces_) {
                 return false;
             } else {
-                is_deleting_.store(0); 
-                current_thread_id_.fetch_add(1);
-                usleep(20000);
-                ic_->commitString(pending_commit_string_);
-                expected_backspaces_ = 0;
-                current_backspace_count_ = -1;
-                pending_commit_string_ = "";
-
+                finishDeletingAndFlush();
                 event.filterAndAccept();
                 return true;
             }
         }
         return false;
+    }
+
+    // Gõ nhanh lúc đang BS: cập nhật engine/preedit (không liên quan hold)
+    void absorbKeyWhileDeleting(fcitx::KeySym currentSym) {
+        if (!(currentSym >= 32 && currentSym <= 126))
+            return;
+        std::string history = readBufferFromFile();
+        history += static_cast<char>(currentSym);
+        writeBufferToFile(history);
+        replayBufferToEngine(history);
+        UniqueCPtr<char> preeditC(EnginePullPreedit(vmkEngine_.handle()));
+        std::string preeditStr =
+            (preeditC && preeditC.get()[0]) ? preeditC.get() : "";
+        if (preeditStr.empty())
+            return;
+        pending_commit_string_ = preeditStr;
+        oldPreBuffer_ = preeditStr;
     }
 
     void deleteBufferFile() { std::remove("/tmp/vmk_buffer"); }
@@ -554,8 +581,18 @@ bool isChromiumX11(fcitx::InputContext *ic, fcitx::Instance *instance) {
                     keyEvent.forward(); return;
                 }
             } else {
-                if (isBackspace(currentSym) && is_deleting_) { if (handleUInputKeyPress(keyEvent, currentSym)) return; return; }
-                keyEvent.filterAndAccept(); return;
+                // Đang xóa bằng uinput: vẫn nhận phím gõ nhanh vào engine,
+                // không nuốt phím (tránh "nos" thay vì "nó").
+                if (isBackspace(currentSym) && is_deleting_) {
+                    if (handleUInputKeyPress(keyEvent, currentSym))
+                        return;
+                    return;
+                }
+                if (currentSym >= 32 && currentSym <= 126) {
+                    absorbKeyWhileDeleting(currentSym);
+                }
+                keyEvent.filterAndAccept();
+                return;
             }
             if (!is_deleting_.load()) {
                 if (uinput_fd_ < 0) setup_uinput();
@@ -604,7 +641,7 @@ bool isChromiumX11(fcitx::InputContext *ic, fcitx::Instance *instance) {
                             expected_backspaces_ = 0;
                             current_backspace_count_ = -1;
                             pending_commit_string_ = "";   
-                            is_deleting_.store(0);           
+                            is_deleting_.store(0);
                             return;
                         }
                         if (is_deleting_.load() == 1) {
@@ -627,17 +664,15 @@ bool isChromiumX11(fcitx::InputContext *ic, fcitx::Instance *instance) {
                                 std::this_thread::sleep_for(std::chrono::milliseconds(5));
 
                                 auto now = std::chrono::steady_clock::now();
-                                if (std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count() > 200) {
+                                // Gõ nhanh: chờ BS xong lâu hơn 200ms (tránh chốt "nos")
+                                if (std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count() > 450) {
                                     break;
                                 }
                             }
 
-                            if (current_thread_id_.load() == my_id) {
-                                if (!pending_commit_string_.empty()) {
-                                    ic_->commitString(pending_commit_string_);
-                                    pending_commit_string_ = "";
-                                }
-                                is_deleting_.store(0);
+                            if (current_thread_id_.load() == my_id &&
+                                is_deleting_.load()) {
+                                finishDeletingAndFlush();
                             }
                         }).detach();
                         
@@ -659,8 +694,16 @@ bool isChromiumX11(fcitx::InputContext *ic, fcitx::Instance *instance) {
                     keyEvent.forward(); return;
                 }
             } else {
-                if (isBackspace(currentSym) && is_deleting_) { if (handleUInputKeyPress(keyEvent, currentSym)) return; return; }
-                keyEvent.filterAndAccept(); return;
+                if (isBackspace(currentSym) && is_deleting_) {
+                    if (handleUInputKeyPress(keyEvent, currentSym))
+                        return;
+                    return;
+                }
+                if (currentSym >= 32 && currentSym <= 126) {
+                    absorbKeyWhileDeleting(currentSym);
+                }
+                keyEvent.filterAndAccept();
+                return;
             }
             if (!is_deleting_.load()) {
                 if (uinput_fd_ < 0) setup_uinput();
@@ -703,7 +746,7 @@ bool isChromiumX11(fcitx::InputContext *ic, fcitx::Instance *instance) {
                             expected_backspaces_ = 0;
                             current_backspace_count_ = -1;
                             pending_commit_string_ = "";   
-                            is_deleting_.store(0);           
+                            is_deleting_.store(0);
                             return;
                         }
                         if (is_deleting_.load() == 1) {
@@ -726,17 +769,14 @@ bool isChromiumX11(fcitx::InputContext *ic, fcitx::Instance *instance) {
                                 std::this_thread::sleep_for(std::chrono::milliseconds(5));
 
                                 auto now = std::chrono::steady_clock::now();
-                                if (std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count() > 200) {
+                                if (std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count() > 450) {
                                     break;
                                 }
                             }
 
-                            if (current_thread_id_.load() == my_id) {
-                                if (!pending_commit_string_.empty()) {
-                                    ic_->commitString(pending_commit_string_);
-                                    pending_commit_string_ = "";
-                                }
-                                is_deleting_.store(0);
+                            if (current_thread_id_.load() == my_id &&
+                                is_deleting_.load()) {
+                                finishDeletingAndFlush();
                             }
                         }).detach();
                         
@@ -973,6 +1013,81 @@ config_.chromex11.setValue(!*config_.chromex11);
         updateChromeX11Action(ic);
     }));
 uiManager.registerAction("vmk-chromex11", chromeX11Action_.get());
+
+    // --- Chức năng gõ EN/VN: bật/tắt trên menu tray, lưu conf/vmk.conf ---
+    autoNonVnAction_ = std::make_unique<SimpleAction>();
+    autoNonVnAction_->setLongText(
+        _("Hoàn tác từ vô nghĩa — no/cleả → trả keystroke; nói/hoa vẫn OK"));
+    autoNonVnAction_->setIcon("insert-text");
+    autoNonVnAction_->setCheckable(true);
+    connections_.emplace_back(autoNonVnAction_->connect<SimpleAction::Activated>(
+        [this](InputContext *ic) {
+            config_.autoNonVnRestore.setValue(!*config_.autoNonVnRestore);
+            saveConfig();
+            refreshOption();
+            updateAutoNonVnAction(ic);
+            if (ic)
+                ic->updateUserInterface(
+                    fcitx::UserInterfaceComponent::StatusArea);
+        }));
+    uiManager.registerAction("vmk-auto-non-vn", autoNonVnAction_.get());
+
+    spellCheckAction_ = std::make_unique<SimpleAction>();
+    spellCheckAction_->setLongText(
+        _("Dùng từ điển khi hoàn tác (từ không phổ biến → hoàn tác)"));
+    spellCheckAction_->setIcon("tools-check-spelling");
+    spellCheckAction_->setCheckable(true);
+    connections_.emplace_back(
+        spellCheckAction_->connect<SimpleAction::Activated>(
+            [this](InputContext *ic) {
+                config_.spellCheckWithDicts.setValue(
+                    !*config_.spellCheckWithDicts);
+                saveConfig();
+                refreshOption();
+                updateSpellCheckAction(ic);
+                if (ic)
+                    ic->updateUserInterface(
+                        fcitx::UserInterfaceComponent::StatusArea);
+            }));
+    uiManager.registerAction("vmk-spell-check", spellCheckAction_.get());
+
+    freeMarkingAction_ = std::make_unique<SimpleAction>();
+    freeMarkingAction_->setLongText(
+        _("Gõ dấu tự do (free marking) — kiểu UniKey"));
+    freeMarkingAction_->setIcon("format-text-direction-ltr");
+    freeMarkingAction_->setCheckable(true);
+    connections_.emplace_back(
+        freeMarkingAction_->connect<SimpleAction::Activated>(
+            [this](InputContext *ic) {
+                config_.freeMarking.setValue(!*config_.freeMarking);
+                saveConfig();
+                refreshOption();
+                updateFreeMarkingAction(ic);
+                if (ic)
+                    ic->updateUserInterface(
+                        fcitx::UserInterfaceComponent::StatusArea);
+            }));
+    uiManager.registerAction("vmk-free-marking", freeMarkingAction_.get());
+
+    englishWordListAction_ = std::make_unique<SimpleAction>();
+    englishWordListAction_->setLongText(
+        _("Whitelist EN thêm — chỉ khi chốt từ, mặc định tắt"));
+    englishWordListAction_->setIcon("accessories-dictionary");
+    englishWordListAction_->setCheckable(true);
+    connections_.emplace_back(
+        englishWordListAction_->connect<SimpleAction::Activated>(
+            [this](InputContext *ic) {
+                config_.englishWordList.setValue(!*config_.englishWordList);
+                saveConfig();
+                refreshOption();
+                updateEnglishWordListAction(ic);
+                if (ic)
+                    ic->updateUserInterface(
+                        fcitx::UserInterfaceComponent::StatusArea);
+            }));
+    uiManager.registerAction("vmk-english-wordlist",
+                             englishWordListAction_.get());
+
     reloadConfig();
     instance_->inputContextManager().registerProperty("VMKState", &factory_);
 }
@@ -999,7 +1114,19 @@ const Configuration *vmkEngine::getSubConfig(const std::string &path) const {
 
 void vmkEngine::setConfig(const RawConfig &config) { config_.load(config, true); saveConfig(); populateConfig(); }
 
-void vmkEngine::populateConfig() { refreshEngine(); refreshOption(); updateModeAction(nullptr); updateInputMethodAction(nullptr); updateCharsetAction(nullptr); updateGeminiAction(nullptr);updateChromeX11Action(nullptr); }
+void vmkEngine::populateConfig() {
+    refreshEngine();
+    refreshOption();
+    updateModeAction(nullptr);
+    updateInputMethodAction(nullptr);
+    updateCharsetAction(nullptr);
+    updateAutoNonVnAction(nullptr);
+    updateSpellCheckAction(nullptr);
+    updateFreeMarkingAction(nullptr);
+    updateEnglishWordListAction(nullptr);
+    updateGeminiAction(nullptr);
+    updateChromeX11Action(nullptr);
+}
 
 void vmkEngine::setSubConfig(const std::string &path, const RawConfig &config) {
     if (path == "custom_keymap") { customKeymap_.load(config, true); safeSaveAsIni(customKeymap_, CustomKeymapFile); refreshEngine(); }
@@ -1018,15 +1145,28 @@ void vmkEngine::activate(const InputMethodEntry &entry, InputContextEvent &event
     auto ic = event.inputContext();
     static std::atomic<bool> mouseThreadStarted{false};
     if (!mouseThreadStarted.exchange(true)) startMouseReset();
-    updateGeminiAction(event.inputContext());
     auto &statusArea = event.inputContext()->statusArea();
-    if (ic->capabilityFlags().test(fcitx::CapabilityFlag::Preedit)) instance_->inputContextManager().setPreeditEnabledByDefault(true);
-    reloadConfig(); updateModeAction(event.inputContext()); updateInputMethodAction(event.inputContext()); updateCharsetAction(event.inputContext());
+    if (ic->capabilityFlags().test(fcitx::CapabilityFlag::Preedit))
+        instance_->inputContextManager().setPreeditEnabledByDefault(true);
+    reloadConfig();
+    updateModeAction(event.inputContext());
+    updateInputMethodAction(event.inputContext());
+    updateCharsetAction(event.inputContext());
+    updateAutoNonVnAction(event.inputContext());
+    updateSpellCheckAction(event.inputContext());
+    updateFreeMarkingAction(event.inputContext());
+    updateEnglishWordListAction(event.inputContext());
+    updateGeminiAction(event.inputContext());
+    updateChromeX11Action(event.inputContext());
     statusArea.addAction(StatusGroup::InputMethod, modeAction_.get());
     statusArea.addAction(StatusGroup::InputMethod, inputMethodAction_.get());
     statusArea.addAction(StatusGroup::InputMethod, charsetAction_.get());
+    statusArea.addAction(StatusGroup::InputMethod, autoNonVnAction_.get());
+    statusArea.addAction(StatusGroup::InputMethod, spellCheckAction_.get());
+    statusArea.addAction(StatusGroup::InputMethod, freeMarkingAction_.get());
+    statusArea.addAction(StatusGroup::InputMethod, englishWordListAction_.get());
     statusArea.addAction(StatusGroup::InputMethod, geminiAction_.get());
-statusArea.addAction(StatusGroup::InputMethod, chromeX11Action_.get()); 
+    statusArea.addAction(StatusGroup::InputMethod, chromeX11Action_.get());
 }
 
 void vmkEngine::keyEvent(const InputMethodEntry &entry, KeyEvent &keyEvent) {
@@ -1100,12 +1240,56 @@ void vmkEngine::updateGeminiAction(InputContext *ic) {
     }
 }
 void vmkEngine::updateChromeX11Action(InputContext *ic) {
-    // Khớp dấu tích với giá trị trong config
-  chromeX11Action_->setChecked(*config_.chromex11);
-chromeX11Action_->setShortText(*config_.chromex11 ? _("ChromeX11: Bật") : _("ChromeX11: Tắt"));
+    chromeX11Action_->setChecked(*config_.chromex11);
+    chromeX11Action_->setShortText(*config_.chromex11 ? _("ChromeX11: Bật")
+                                                      : _("ChromeX11: Tắt"));
     if (ic) {
         chromeX11Action_->update(ic);
     }
+}
+
+void vmkEngine::updateAutoNonVnAction(InputContext *ic) {
+    if (!autoNonVnAction_)
+        return;
+    autoNonVnAction_->setChecked(*config_.autoNonVnRestore);
+    autoNonVnAction_->setShortText(*config_.autoNonVnRestore
+                                       ? _("Hoàn tác vô nghĩa: Bật")
+                                       : _("Hoàn tác vô nghĩa: Tắt"));
+    if (ic)
+        autoNonVnAction_->update(ic);
+}
+
+void vmkEngine::updateSpellCheckAction(InputContext *ic) {
+    if (!spellCheckAction_)
+        return;
+    spellCheckAction_->setChecked(*config_.spellCheckWithDicts);
+    spellCheckAction_->setShortText(*config_.spellCheckWithDicts
+                                        ? _("Từ điển hoàn tác: Bật")
+                                        : _("Từ điển hoàn tác: Tắt"));
+    if (ic)
+        spellCheckAction_->update(ic);
+}
+
+void vmkEngine::updateFreeMarkingAction(InputContext *ic) {
+    if (!freeMarkingAction_)
+        return;
+    freeMarkingAction_->setChecked(*config_.freeMarking);
+    freeMarkingAction_->setShortText(*config_.freeMarking
+                                         ? _("Free marking: Bật")
+                                         : _("Free marking: Tắt"));
+    if (ic)
+        freeMarkingAction_->update(ic);
+}
+
+void vmkEngine::updateEnglishWordListAction(InputContext *ic) {
+    if (!englishWordListAction_)
+        return;
+    englishWordListAction_->setChecked(*config_.englishWordList);
+    englishWordListAction_->setShortText(*config_.englishWordList
+                                             ? _("EN whitelist: Bật")
+                                             : _("EN whitelist: Tắt"));
+    if (ic)
+        englishWordListAction_->update(ic);
 }
 } 
 
